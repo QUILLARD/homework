@@ -9,10 +9,12 @@ ws3 = wb_03.active
 
 pages = []
 for ws in [ws1, ws2, ws3]:
-    print(f"Страница: {ws}")
+    count = 1
+    print(f"Страница: {ws.title}")
     for row in ws.iter_rows(values_only=True):
-        print(f"Колонка: {row}")
+        print(f"Ряд {count}: {row}")
         pages.append(row)
+        count += 1
 
 data = sorted(pages, reverse=True)
 
