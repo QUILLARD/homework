@@ -1,0 +1,53 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<main class="content">
+        <div class="container">
+            <h1 class="text-center title-h1 mt-5">Каталог</h1>
+            <div class="row gx-4 shop mb-5">
+                <a class="col-xl-4 col-lg-12 mb-3">
+                    <div class="shop-item shop-item01">
+                        <span class="sale">Sale</span>
+                        <div class="row align-items-center text-info">
+                            <div class="col-xl-8 col-sm-12">
+                                <h3>White Swan Chair</h3>
+                            </div>
+                            <div class="col-xl-4 col-sm-12">
+                                <p>$69.99</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="col-xl-4 col-lg-12 mb-3">
+                    <div class="shop-item shop-item02">
+                        <span class="sale nosale"></span>
+                        <div class="row align-items-center text-info">
+                            <div class="col-xl-8 col-sm-12">
+                                <h3>White Swan Chair</h3>
+                            </div>
+                            <div class="col-xl-4 col-sm-12">
+                                <p>$69.99</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a class="col-xl-4 col-lg-12 mb-3">
+                    <div class="shop-item shop-item03">
+                        <span class="sale">Sale</span>
+                        <div class="row align-items-center text-info">
+                            <div class="col-xl-8 col-sm-12">
+                                <h3>White Swan Chair</h3>
+                            </div>
+                            <div class="col-xl-4 col-sm-12">
+                                <p>$69.99</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <img class="w-100 mt-5 mb-5" src="{% static 'log/img/picture.png' %}" alt="Picture">
+    </main>
+{% endblock %}

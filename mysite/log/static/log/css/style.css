@@ -1,0 +1,95 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+.content {
+  padding-bottom: 90px;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+}
+
+.shop-item {
+    height: 265px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.shop-item01 {
+    background-image: url(../img/item01.png);
+}
+
+.shop-item02 {
+    background-image: url(../img/item02.png);
+}
+
+.shop-item03 {
+    background-image: url(../img/item03.png);
+}
+
+.sale {
+    font-family: 'Rubik', sans-serif;
+    background-color: #083C6E;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 6px 23px 5px;
+    position: absolute;
+    top: 13px;
+    left: 13px;
+}
+
+.nosale {
+    visibility: hidden;
+}
+
+.text-info {
+    position: absolute;
+    bottom: 0;
+    left: .75rem;
+    width: 100%;
+    background-color: #083C6E;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.text-info h3 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.text-info p {
+    font-size: 18px;
+    color: #fff;
+    border: 1.5px solid #fff;
+    border-radius: 5px;
+    padding: 5px 16px;
+    margin-bottom: 0;
+}
+
+.bg_color {
+  background-color: #083C6E;
+}
+
+.a_color {
+  color: white;
+}
