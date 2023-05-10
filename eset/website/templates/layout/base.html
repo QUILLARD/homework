@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Главная {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+</head>
+<body>
+ <header class="header">
+        <div class="container">
+            <div class="header-nav">
+                <a href="#" class="logo"><img src="{% static 'website/img/eset.png' %}" class="logo-img" alt="eset"></a>
+
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="{% url 'home' %}" class="nav-link">Home</a></li>
+                        <li><a href="{% url 'about' %}" class="nav-link">About</a></li>
+                        <li><a href="{% url 'contacts' %}" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header-row">
+                <div class="header-content">
+                    <h1 class="header-heading">Antivirus<br>ESET NOD32</h1>
+                    <p>Антивирусные программы защищают компьютерные услуги от вирусов, которые портят и уничтожают хранящиеся на устройстве данные, и даже могут стать причиной неисправности операционной системы. Компания ESET предлагает лицензионный антивирус для надежной защиты компьютеров, планшетов, мобильных устройств от вредоносных программ. На сайте также доступна бесплатная триальная версия. Скачав её, вы сможете оценить функционал и сильные стороны антивируса в течение 30 дней.</p>
+                </div>
+
+                <div class="header-img">
+                    <img src="{% static 'website/img/ro.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
+
+{% block content %}
+
+{% endblock %}
+
+<footer class="footer">
+        <p>&copy;&nbsp;2023&nbsp;г. ESET, spol.&nbsp;s&nbsp;r.o. Все права защищены.</p>
+</footer>
+</body>
+</html>

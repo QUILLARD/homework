@@ -1,0 +1,47 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="description">
+        <div class="container">
+            <div class="description-row">
+
+                <div class="card">
+                    <img class="card-img" src="{% static 'website/img/1.svg' %}" alt="image">
+                    <h3 class="card-title">Аналитика угроз</h3>
+                    <p>Обнаружение всех видов вредоносного ПО. Собранные данные телеметрии находятся в защищенном облачном хранилище и обрабатываются для формирования определений вирусов.</p>
+                </div>
+
+                <div class="card">
+                    <img class="card-img" src="{% static 'website/img/2.svg' %}" alt="image">
+                    <h3 class="card-title">Оптимизация обновлений</h3>
+                    <p>NOD32 применяет механизм оптимизации сигнатур, который позволяет свести к минимуму размер загружаемых обновлений и использование вычислительных ресурсов, включая ОЗУ и ЦП.</p>
+                </div>
+
+                <div class="card">
+                    <img class="card-img" src="{% static 'website/img/3.svg' %}" alt="image">
+                    <h3 class="card-title">Удобное развертывание и управление</h3>
+                    <p>Установка и управление PRO32 доступно с помощью веб-консоли из любого браузера. Удаленное развертывание осуществляется через AD, в рабочей группе, по e-mail или по ссылке.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pros">
+        <div class="content-container">
+            <div class="content-text">
+                <h2 class="content-h2">Плюсы использования продукции ESET:</h2>
+                <ul>
+                    <li><span class="mark">&#10004;</span> широкий выбор пакетов для использования дома и в офисе;</li>
+                    <li><span class="mark">&#10004;</span> регулярные обновления;</li>
+                    <li><span class="mark">&#10004;</span> продукция подходит для любых ОС;</li>
+                    <li><span class="mark">&#10004;</span> бесплатный пробный период для разных пакетов.</li>
+                </ul>
+            </div>
+            <div class="pros-img">
+                <img src="{% static 'website/img/eset2.png' %}" alt="eset">
+            </div>
+
+        </div>
+    </section>
+{% endblock %}

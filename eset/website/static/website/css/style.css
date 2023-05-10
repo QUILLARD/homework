@@ -1,0 +1,158 @@
+@import "./reset.css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+li {
+    list-style-type: none;
+}
+
+body {
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1230px;
+    padding: 0 30px;
+    margin: 0 auto;
+}
+
+.header {
+    padding-top: 46px;
+    background-color: #F1F1F1;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.logo {
+    position: relative;
+    padding: 0 12px 3px 0;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1;
+    color: #000;
+}
+.logo-img {
+    width: 100px;
+}
+
+.nav-list {
+    display: flex;
+    column-gap: 50px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.nav-link {
+    color: #000;
+}
+
+.header-row {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 30px;
+}
+
+.header-content {
+    margin-top: 10px;
+    max-width: 500px;
+}
+
+.header-heading {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.header-content p {
+    line-height: 2;
+}
+
+.description {
+    padding: 90px 0;
+}
+
+.description-row {
+    display: flex;
+    column-gap: 30px;
+    row-gap: 60px;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1 1 0;
+    min-width: 315px;
+}
+
+.card-img {
+    margin-left: 100px;
+    margin-bottom: 30px;
+}
+
+.card-title {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.card p {
+    line-height: 2;
+}
+
+.content-container {
+    max-width: 1230px;
+    padding: 0 30px;
+    margin: 0 auto;
+    display: flex;
+}
+
+.content-text {
+    margin-right: 40px;
+    margin-top: 80px;
+}
+
+.content-text ul li {
+    font-size: 18px;
+}
+
+.content-h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.pros {
+    padding: 90px 0;
+    background-color: #F1F1F1;
+}
+
+.pros-img {
+    text-align: center;
+}
+
+.footer {
+    padding: 90px 0;
+    text-align: center;
+}
+
+.mark {
+    background-color: rgb(11, 144, 168);
+}
+
+.about {
+padding: 90px 0;
+
+text-align: center;
+}
+
+.contacts {
+padding: 90px 0;
+
+text-align: center;
+}
