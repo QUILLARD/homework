@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 
 from bboard.forms import BbForm
-from bboard.models import Bb, Rubric
+from bboard.models import Bb, Rubric, IceCream
 
 
 class BbCreateView(CreateView):
@@ -37,3 +37,11 @@ def by_rubric(request, rubric_id):
         'current_rubric': current_rubric
     }
     return render(request, 'bboard/by_rubric.html', context)
+
+
+def by_icecream(request):
+    icecream = IceCream.objects.all()
+    context = {
+        'icecream': icecream,
+    }
+    return render(request, 'bboard/icecream.html', context)

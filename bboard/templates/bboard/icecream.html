@@ -1,0 +1,15 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}Мороженое{% endblock %}
+{% block header %}Мороженое{% endblock header %}
+
+{% block content %}
+
+    {% for ic in icecream %}
+        <div class="container_icecream">
+        {{ ic.get_product_id }} </br>
+        Цена: {{ ic.selling_price }}
+        </div>
+    {% endfor %}
+
+{% endblock %}

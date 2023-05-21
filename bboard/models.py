@@ -1,5 +1,11 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
+
+
+def get_positive_numbers(num):
+    if num < 0:
+        raise ValidationError('Число %(value)s меньше нуля', code='odd', params={'value': num})
 
 
 class AdvUser(models.Model):
@@ -145,10 +151,33 @@ class IceCream(models.Model):
     taste = models.CharField(
         max_length=20,
         verbose_name='Вкус',
+        db_index=True,
+    )
+    price = models.IntegerField(
+        verbose_name='Цена',
+        validators=[get_positive_numbers],
+        null=True,
+        blank=True,
+    )
+    percent = models.IntegerField(
+        verbose_name='Процент',
+        validators=[get_positive_numbers],
+        blank=True,
+        null=True,
     )
     markets = models.ManyToManyField(
         'IceCreamMarket',
     )
+
+    def get_product_id(self):
+        return f'{self.id}. {self.taste}'
+
+    def selling_price(self):
+        if self.price:
+            percent = self.percent * 0.01 * self.price
+            percent = percent + self.price
+            return percent
+        return 0
 
     def __str__(self):
         return self.taste
