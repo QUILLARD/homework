@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -189,6 +191,12 @@ class IceCream(models.Model):
 
 
 class IceCreamMarket(models.Model):
+
+    colors = [
+        ('b', 'black'),
+        ('w', 'white'),
+    ]
+
     name = models.CharField(
         max_length=20,
         verbose_name='Название',
@@ -197,6 +205,12 @@ class IceCreamMarket(models.Model):
     address = models.CharField(
         max_length=30,
         verbose_name='Адрес',
+    )
+
+    color = models.CharField(
+        max_length=1,
+        choices=colors,
+        default='b',
     )
 
     def __str__(self):

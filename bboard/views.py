@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
+from django.views.generic import CreateView
 
 from bboard.forms import BbForm
 from bboard.models import Bb, Rubric, IceCream
@@ -25,6 +25,14 @@ def index(request):
         'rubrics': rubrics,
     }
     return render(request, 'bboard/index.html', context)
+
+
+def rubrics_view(request):
+    rubrics = Rubric.objects.all()
+    context = {
+        'rubrics': rubrics,
+    }
+    return render(request, 'bboard/rubrics.html', context)
 
 
 def by_rubric(request, rubric_id):

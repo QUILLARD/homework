@@ -1,0 +1,18 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="text-center title-h1 mt-5">Лист Задач</h2>
+    {% for task in tasks %}
+<div class="row gx-4 shop mb-5 task-frame ">
+
+        <p>Задача: {{ task.name }}</p>
+        <p>Заметки: {{ task.notes }}</p>
+        <p>Начало: {{ task.start }}</p>
+        <p>Статус: {{ task.is_completed }}</p>
+
+</div>
+    {% endfor %}
+    <a href="{% url 'task_add' %}" ><button class="btn-create">Создать</button></a>
+{% endblock %}

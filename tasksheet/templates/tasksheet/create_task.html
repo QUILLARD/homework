@@ -1,0 +1,15 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="text-center title-h1 mt-5">Добавление задачи</h2>
+<div class="row gx-4 shop mb-5">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+
+{% endblock %}
