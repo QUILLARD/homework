@@ -1,0 +1,14 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %} Редактирование сообщения {% endblock %}
+{% block header %} <h1>Редактирование сообщения</h1> {% endblock header %}
+
+{% block content %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+     <input type="submit" value="Изменить">
+    </form>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %} Удаление сообщения {% endblock %}
+
+{% block header %} <h1>Удаление сообщения</h1> {% endblock header %}
+
+{% block content %}
+
+    <form action="" method="post">
+
+        <div class="sms-frame">
+        <p>Отправитель: {{ sms.sender }}</p>
+        <p>Получатель: {{ sms.receiver }}</p>
+        <p>Сообщение: {{ sms.comment }}</p>
+        </div>
+        {% csrf_token %}
+        <p>Вы действительно хотите удалить сообщение от: {{ sms.receiver }}</p>
+        <input type="submit" value="Удалить">
+
+    </form>
+
+{% endblock %}

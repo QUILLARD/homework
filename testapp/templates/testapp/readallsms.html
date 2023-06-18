@@ -1,0 +1,18 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %} Сообщения {% endblock %}
+{% block header %} <h1>Сообщения</h1> {% endblock header %}
+
+{% block content %}
+
+{% for message in sms %}
+
+    <div class="sms-frame">
+        <p>Отправитель: {{ message.sender }}</p>
+        <p>Получатель: {{ message.receiver }}</p>
+        <p>Сообщение: {{ message.comment }}</p>
+    </div>
+
+{% endfor %}
+
+{% endblock %}

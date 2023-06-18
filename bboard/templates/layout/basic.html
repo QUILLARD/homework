@@ -1,0 +1,37 @@
+{% load static %}
+{% load count_bbs %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %} ::
+        Доска объявлений</title>
+    <link rel="stylesheet" href="{% static 'bboard/style.css' %}">
+</head>
+<body>
+<header>
+    {% block header %} <h1>Объявления</h1> {% endblock header %}
+</header>
+<nav>
+    <a href="{% url 'index' %}">Главная</a>
+    <a href="{% url 'add' %}">Добавить объявление</a>
+    <a href="{% url 'add_sms' %}">Отправить SMS</a>
+    <a href="{% url 'read_all_sms' %}">Просмотр SMS</a>
+    {% for rubric in rubrics %}
+{#        <a href="{% url 'by_rubric' rubric.pk %}">#}
+        <a href="{{ rubric.get_absolute_url }}">
+            {{ rubric.name }}
+            {% if count_bb %}
+                ({{ count_bb|count_bbs:rubric.pk }})
+            {% endif %}
+        </a>
+    {% endfor %}
+</nav>
+<section>
+    {% block content %}
+        Контента нет
+    {% endblock %}
+</section>
+</body>
+</html>
