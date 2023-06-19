@@ -1,0 +1,117 @@
+* {
+    font-family: Verdana, Geneva, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+.content {
+  padding-bottom: 90px;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+}
+
+.shop-item {
+    height: 265px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.shop-item01 {
+    background-color: #DCDCDC;
+    padding: 10px;
+}
+
+.sale {
+    font-family: 'Rubik', sans-serif;
+    background-color: #083C6E;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 6px 23px 5px;
+    position: absolute;
+    top: 13px;
+    left: 13px;
+}
+
+.nosale {
+    visibility: hidden;
+}
+
+.text-info {
+    position: absolute;
+    bottom: 0;
+    left: .75rem;
+    width: 100%;
+    background-color: #083C6E;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.text-info h3 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+.text-info p {
+    font-size: 18px;
+    color: #fff;
+    border: 1.5px solid #fff;
+    border-radius: 5px;
+    padding: 5px 16px;
+    margin-bottom: 0;
+}
+
+.bg_color {
+  background-color: #083C6E;
+}
+
+.a_color {
+  color: white;
+}
+
+.bb-margin {
+    margin-bottom: 50px;
+}
+
+.ice-cream {
+    background-image: url(img/icecream.jpg);
+}
+
+.rubrics-img {
+    background-image: url(img/rubrics.jpg);
+}
+
+.task-frame {
+    padding-left: 10px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.task-frame:hover {
+    background-color: #B0C4DE;
+    transition-duration: .8s;
+}
+
+.btn-create {
+    border: 1px solid black;
+    padding: 9px;
+}

@@ -1,0 +1,31 @@
+{% extends "layout/basic.html" %}
+
+{% load static %}
+
+{% block title %} Мороженое {% endblock %}
+
+{% block content %}
+
+<div class="container">
+            <h1 class="text-center title-h1 mt-5"> Мороженое </h1>
+
+            <div class="row gx-4 shop mb-5">
+                  {% for ic in icecream %}
+                    <div class="shop-item shop-item01 bb-margin ice-cream">
+
+                        <div class="row align-items-center text-info">
+                            <div class="col-xl-8 col-sm-12">
+                                <h2>{{ ic.taste }}</h2>
+                            </div>
+                            <div class="col-xl-4 col-sm-12">
+                                <p>${{ ic.selling_price }}</p>
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+            </div>
+        </div>
+
+         <img class="w-100 mt-5 mb-5" src="{% static 'bboard/img/icecreammarket.jpg' %}" alt="Picture">
+
+{% endblock %}
