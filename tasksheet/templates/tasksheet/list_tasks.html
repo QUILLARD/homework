@@ -1,0 +1,45 @@
+{% extends 'layout/basic.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+    {% if tasks %}
+        <h2 class="text-center title-h1 mt-5">Лист Задач</h2>
+    {% else %}
+        <h2 class="text-center title-h1 mt-5">Активных задач нет</h2>
+    {% endif %}
+
+</div>
+
+    {% for task in tasks %}
+
+<div class="d-flex flex-column flex-md-row p-4 gap-4  align-items-center justify-content-center">
+    <div class="list-group" style="width: 400px;">
+  <div class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+
+      <img src="{% static 'bboard/img/logobootstrap.png' %}" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+      <div class="d-flex gap-2 w-100 justify-content-between">
+        <div>
+          <h6 class="mb-0">Задача: {{ task.name }}</h6>
+          <p class="mb-0 opacity-75 text-container">{{ task.notes }}</p>
+        </div>
+        <small class="opacity-50 text-nowrap">
+            Статус: {{ task.is_completed }}<br>
+            <a href="{% url 'delete_task' task.pk %}"><button>Удалить</button></a>
+            <a href="{% url 'update_task' task.pk %}"><button>Изменить</button></a>
+        </small>
+      </div>
+
+  </div>
+        </div>
+</div>
+    {% endfor %}
+
+
+
+{% endblock %}
+
+

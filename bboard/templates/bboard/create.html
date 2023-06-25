@@ -1,0 +1,23 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}Добавление объявления{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="text-center title-h1 mt-5">Добавление объявления</h2>
+
+    <div class="list-group list-group-item ">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+             <small class="opacity-50 text-nowrap">
+                 <input type="submit" value="Добавить">
+             </small>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

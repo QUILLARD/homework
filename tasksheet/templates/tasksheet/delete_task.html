@@ -1,0 +1,28 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="text-center title-h1 mt-5"> {{ task.name }} </h2>
+
+        <div class="list-group list-group-item ">
+
+            <form method="post">
+                {% csrf_token %}
+
+                <p>Задача: {{ task.name }}</p> <hr>
+                <p>Заметки: {{ task.notes }}</p> <hr>
+                <p>Старт: {{ task.start }}</p> <hr>
+                <p>Статус: {{ task.is_completed }}</p> <hr>
+
+                <small class="opacity-50 text-nowrap">
+                    <a href="{% url 'index' %}"><input type="button" value="Отмена"></a>
+                    <input type="submit" value="Удалить">
+                </small>
+            </form>
+
+        </div>
+
+</div>
+
+{% endblock %}
