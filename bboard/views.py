@@ -1,9 +1,24 @@
-from django.shortcuts import render
+from django.db.models import Count
+from django.http import JsonResponse
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView, TemplateView
 
+from bboard.employees_data import employees_json
 from bboard.forms import BbForm
-from bboard.models import Bb, Rubric, IceCream
+from bboard.models import Bb, Rubric
+
+
+def json_data(request):
+    return JsonResponse(employees_json)
+
+
+def count_bb():
+    result = dict()
+
+    for r in Rubric.objects.annotate(num_bbs=Count('bb')):
+        result.update({r.pk: r.num_bbs})
+
+    return result
 
 
 class BbCreateView(CreateView):
@@ -17,39 +32,37 @@ class BbCreateView(CreateView):
         return context
 
 
-def index(request):
-    bbs = Bb.objects.order_by('-published')
-    rubrics = Rubric.objects.all()
-    context = {
-        'bbs': bbs,
-        'rubrics': rubrics,
-    }
-    return render(request, 'bboard/index.html', context)
+class BbView(ListView):
+    template_name = 'bboard/index.html'
+    model = Bb
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['bbs'] = Bb.objects.all()
+        context['rubrics'] = Rubric.objects.all()
+        context['count_bb'] = count_bb()
+
+        return context
 
 
-def rubrics_view(request):
-    rubrics = Rubric.objects.all()
-    context = {
-        'rubrics': rubrics,
-    }
-    return render(request, 'bboard/rubrics.html', context)
+class RubricsView(TemplateView):
+    template_name = 'bboard/rubrics.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rubrics'] = Rubric.objects.all()
+
+        return context
 
 
-def by_rubric(request, rubric_id):
-    bbs = Bb.objects.filter(rubric=rubric_id)
-    rubrics = Rubric.objects.all()
-    current_rubric = Rubric.objects.get(pk=rubric_id)
-    context = {
-        'bbs': bbs,
-        'rubrics': rubrics,
-        'current_rubric': current_rubric
-    }
-    return render(request, 'bboard/by_rubric.html', context)
+class BbByRubricView(TemplateView):
+    template_name = 'bboard/by_rubric.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_rubric'] = Rubric.objects.get(pk=context['rubric_id'])
+        context['bbs'] = Bb.objects.filter(rubric=context['rubric_id'])
+        context['rubrics'] = Rubric.objects.all()
+        context['count_bb'] = count_bb()
 
-def by_icecream(request):
-    icecream = IceCream.objects.all()
-    context = {
-        'icecream': icecream,
-    }
-    return render(request, 'bboard/icecream.html', context)
+        return context
