@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, TemplateView
 
-from bboard.employees_data import employees_json
 from bboard.forms import BbForm
+from bboard.JsonFiles.employees_data import employees_json
 from bboard.models import Bb, Rubric
 
 
