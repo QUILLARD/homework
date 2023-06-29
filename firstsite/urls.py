@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bboard.urls')),
     path('tasksheet/', include('tasksheet.urls')),
+    path('auth/', include('authapp.urls', namespace='authapp')),
 ]

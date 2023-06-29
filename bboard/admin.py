@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bboard.models import Bb, Rubric, Parent, Child, Machine, Spare, IceCreamMarket, IceCream
+from bboard.models import Bb, Rubric
 
 
 class BbAdmin(admin.ModelAdmin):
@@ -8,9 +8,11 @@ class BbAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
 
 
-admin.site.register(Rubric)
+class RubricAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_display_links = ('name',)
+    search_fields = ('name',)
+
+
+admin.site.register(Rubric, RubricAdmin)
 admin.site.register(Bb, BbAdmin)
-admin.site.register(Child)
-admin.site.register(Parent)
-admin.site.register(IceCream)
-admin.site.register(IceCreamMarket)

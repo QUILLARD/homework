@@ -1,15 +1,20 @@
 from django.db.models import Count
-from django.http import JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, TemplateView
 
 from bboard.forms import BbForm
-from bboard.JsonFiles.employees_data import employees_json
 from bboard.models import Bb, Rubric
 
 
-def json_data(request):
-    return JsonResponse(employees_json)
+menu = [{'title': 'Главная', 'url_name': 'index'},
+        {'title': 'Рубрики',
+        'sub_name_01': 'Посмотреть рубрики', 'sub_url_01': 'rubrics_view'},
+        {'title': 'Объявления',
+         'sub_name_01': 'Создать объявление', 'sub_url_01': 'add'},
+        {'title': 'Задачи',
+         'sub_name_01': 'Посмотреть задачи', 'sub_url_01': 'list_tasks',
+         'sub_name_02': 'Создать задачу', 'sub_url_02': 'task_add'},
+        ]
 
 
 def count_bb():
@@ -29,6 +34,8 @@ class BbCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Rubric.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Создание объявления'
         return context
 
 
@@ -41,6 +48,8 @@ class BbView(ListView):
         context['bbs'] = Bb.objects.all()
         context['rubrics'] = Rubric.objects.all()
         context['count_bb'] = count_bb()
+        context['menu'] = menu
+        context['title'] = 'Главная страница'
 
         return context
 
@@ -51,6 +60,8 @@ class RubricsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['rubrics'] = Rubric.objects.all()
+        context['menu'] = menu
+        context['title'] = 'Рубрики'
 
         return context
 
@@ -64,5 +75,7 @@ class BbByRubricView(TemplateView):
         context['bbs'] = Bb.objects.filter(rubric=context['rubric_id'])
         context['rubrics'] = Rubric.objects.all()
         context['count_bb'] = count_bb()
+        context['menu'] = menu
+        context['title'] = ''
 
         return context
