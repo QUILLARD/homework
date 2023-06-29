@@ -22,7 +22,7 @@ def login(request):
 
         user = auth.authenticate(username=username, password=password)
 
-        if user.is_valid():
+        if user.is_active():
             auth.login(request, user)
             logg_path = os.path.join(BASE_DIR, 'logs', 'app.txt')
             dt = datetime.now()
