@@ -14,6 +14,7 @@ class Task(models.Model):
 
     start = models.DateTimeField(
         auto_now_add=True,
+        verbose_name='Начало'
     )
 
     is_completed = models.BooleanField(
@@ -21,4 +22,8 @@ class Task(models.Model):
         verbose_name='Статус'
     )
 
+    class Meta:
+        verbose_name = 'Лист задач'
+        verbose_name_plural = 'Лист задач'
+        ordering = ['start']
 

@@ -1,14 +1,15 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.db.models import Count
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse_lazy, reverse
+from django.views.generic import CreateView, ListView, TemplateView, DetailView, FormView
+from django.views.generic.edit import ProcessFormView, UpdateView
 
 from bboard.forms import BbForm
-from bboard.models import Bb, Rubric
-
+from bboard.models import Bb, Rubric, AdvUser
 
 menu = [{'title': 'Главная', 'url_name': 'index'},
-        {'title': 'Рубрики',
-        'sub_name_01': 'Посмотреть рубрики', 'sub_url_01': 'rubrics_view'},
         {'title': 'Объявления',
          'sub_name_01': 'Создать объявление', 'sub_url_01': 'add'},
         {'title': 'Задачи',
@@ -26,56 +27,83 @@ def count_bb():
     return result
 
 
-class BbCreateView(CreateView):
+class BbCreateView(LoginRequiredMixin, CreateView):
     template_name = 'bboard/create.html'
     form_class = BbForm
     success_url = reverse_lazy('index')
+    login_url = reverse_lazy('index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['rubrics'] = Rubric.objects.all()
         context['menu'] = menu
         context['title'] = 'Создание объявления'
         return context
 
 
 class BbView(ListView):
+    paginate_by = 3
     template_name = 'bboard/index.html'
     model = Bb
+    context_object_name = 'bbs'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['bbs'] = Bb.objects.all()
-        context['rubrics'] = Rubric.objects.all()
-        context['count_bb'] = count_bb()
         context['menu'] = menu
         context['title'] = 'Главная страница'
-
-        return context
-
-
-class RubricsView(TemplateView):
-    template_name = 'bboard/rubrics.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['rubrics'] = Rubric.objects.all()
-        context['menu'] = menu
-        context['title'] = 'Рубрики'
-
-        return context
-
-
-class BbByRubricView(TemplateView):
-    template_name = 'bboard/by_rubric.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['current_rubric'] = Rubric.objects.get(pk=context['rubric_id'])
-        context['bbs'] = Bb.objects.filter(rubric=context['rubric_id'])
-        context['rubrics'] = Rubric.objects.all()
         context['count_bb'] = count_bb()
-        context['menu'] = menu
-        context['title'] = ''
 
         return context
+
+
+class BbByRubricView(ListView):
+    template_name = 'bboard/by_rubric.html'
+    model = Bb
+    context_object_name = 'bbs'
+    allow_empty = False
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = context['bbs'][0].rubric
+
+        return context
+
+    def get_queryset(self):
+        return Bb.objects.filter(rubric__slug=self.kwargs['rubric_slug'])
+
+
+class BbDetailView(DetailView):
+    model = Bb
+    context_object_name = 'bb'
+    template_name = 'bboard/bb_detail.html'
+    slug_url_kwarg = 'bb_slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = context['bb']
+
+        return context
+
+
+class UsersView(ListView):
+    template_name = 'bboard/users.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['users'] = User.objects.all()
+
+        return context
+
+    def get_queryset(self):
+        return User.objects.all()
+
+
+def user_detail(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+
+    context = {
+        'user': user
+    }
+    return render(request, 'bboard/user_detail.html', context)

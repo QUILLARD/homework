@@ -1,22 +1,20 @@
 {% extends "layout/basic.html" %}
 
-{% block title %}Добавление объявления{% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block content %}
 
-<div class="container">
 
-    <h2 class="text-center title-h1 mt-5">Добавление объявления</h2>
+<div class="container create-ad">
 
-    <div class="list-group list-group-item ">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-             <small class="opacity-50 text-nowrap">
+            {% for f in form %}
+            <p><label for="f.id_for_label" class="form-label">{{ f.label }}:</label> <span class="entry-field">{{ f }}</span></p>
+            <p>{{ f.errors }}</p>
+            {% endfor %}
                  <input type="submit" value="Добавить">
-             </small>
         </form>
-    </div>
 
 </div>
 

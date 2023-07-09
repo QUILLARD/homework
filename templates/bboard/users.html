@@ -1,0 +1,11 @@
+{% extends "layout/basic.html" %}
+
+{% block content %}
+
+    <h1>Зарегистрированные пользователи</h1>
+    {% for user in users %}
+        <p>Username: {{ user.username }}</p>
+        <br>
+    {% endfor %}
+
+{% endblock %}

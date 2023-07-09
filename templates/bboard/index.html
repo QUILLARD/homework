@@ -2,39 +2,50 @@
 
 {% load static %}
 
+{% load bboard_tags %}
+
 {% block content %}
 
-        <div class="container">
-            {% if user.is_authenticated %}
-            <h3><a href="{% url 'authapp:logout' %}">Выйти ({{ user.username }})</a></h3>
-            {% else %}
-            <h3><a href=" {% url 'authapp:login' %}">Войти</a></h3>
-            {% endif %}
-            <h1 class="text-center title-h1 mt-5">Объявления</h1>
+{% all_rubrics as rubrics %}
 
-            <div class="row gx-4 shop mb-5">
-                 {% for bb in bbs %}
-                        <div class="shop-item shop-item01 bb-margin">
-                        <div>
-                            <p>{{ bb.content }}</p>
-                            <p><a href="{% url 'by_rubric' bb.rubric.pk %}">
-                                {{ bb.rubric.name }}</a></p>
-                        <p>{{ bb.published|date:"d.m.Y H:i:s" }}</p>
-                        </div>
-                        <div class="row align-items-center text-info">
-                            <div class="col-xl-8 col-sm-12">
-                                <h2>{{ bb.title }}</h2>
-                            </div>
-                            <div class="col-xl-4 col-sm-12">
-                                <p>${{ bb.price }}</p>
-                            </div>
-                        </div>
+<div class="container">
+    <div class="content-row">
+        <div class="content-rubrics">
+            {% for rubric in rubrics %}
+            <div class="content-rubrics-item">
+                <a href="{{ rubric.get_absolute_url }}" class="">
+                    <div class="content-rubrics-items">
+                        <h3 class="content-rubric-title">{{ rubric.name }}</h3>
+                        <img class="content-rubric-image" src="{{ rubric.image.url }}">
                     </div>
-                  {% endfor %}
+                </a>
             </div>
+            {% endfor %}
+        </div>
+        <div class="content-ads">
+            {% for bb in bbs %}
+            <div class="content-ads-item">
+                <div class="content-ads-header">
+                    <p>Рубрика: <a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric.name }}</a></p>
+                    <p>Дата публикации: {{ bb.time_create|date:"d.m.Y" }}</p>
+                </div>
+                <div class="content-ads-items">
+                    <img class="content-ads-image" src="{{ bb.image.url }}">
+                    <div class="content-ads-description">
+                        <h3>{{ bb.title }}</h3>
+                        <p>{{ bb.content }}</p>
+                        <p>${{ bb.price }}</p>
+                    </div>
+                </div>
+
+                <p class="content-ads-open"><a href="{{ bb.get_absolute_url }}">Открыть</a></p>
+
+            </div>
+            {% endfor %}
         </div>
 
 
-        <img class="w-100 mt-5 mb-5" src="{% static 'bboard/img/picture.png' %}" alt="Picture">
+    </div>
+</div>
 
 {% endblock %}

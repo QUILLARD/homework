@@ -1,14 +1,11 @@
 {% extends "layout/basic.html" %}
 
-{% block title %}
-    {{ title }}
-{% endblock %}
+{% load static %}
 
 {% block content %}
 
 
-        <div class="content-ads container">
-            {% for bb in bbs %}
+<div class="content-ads container">
             <div class="content-ads-item">
                 <div class="content-ads-header">
                     <p>Рубрика: <a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric.name }}</a></p>
@@ -26,7 +23,5 @@
                 <p class="content-ads-open"><a href="{{ bb.get_absolute_url }}">Открыть</a></p>
 
             </div>
-            {% endfor %}
         </div>
-
 {% endblock %}
