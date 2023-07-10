@@ -8,8 +8,8 @@ class Task(models.Model):
     )
 
     notes = models.CharField(
-        max_length=100,
-        verbose_name='Заметки'
+        max_length=255,
+        verbose_name='Описание'
     )
 
     start = models.DateTimeField(

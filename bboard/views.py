@@ -85,25 +85,3 @@ class BbDetailView(DetailView):
         context['title'] = context['bb']
 
         return context
-
-
-class UsersView(ListView):
-    template_name = 'bboard/users.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['users'] = User.objects.all()
-
-        return context
-
-    def get_queryset(self):
-        return User.objects.all()
-
-
-def user_detail(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-
-    context = {
-        'user': user
-    }
-    return render(request, 'bboard/user_detail.html', context)

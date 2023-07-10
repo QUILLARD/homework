@@ -1,8 +1,12 @@
-from django.forms import ModelForm
+from django import forms
 from tasksheet.models import Task
 
 
-class TaskForm(ModelForm):
+class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ('name', 'notes')
+        fields = ['name', 'notes']
+        widgets = {
+            'notes': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
+        }
+

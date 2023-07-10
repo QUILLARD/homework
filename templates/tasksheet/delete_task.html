@@ -1,28 +1,34 @@
 {% extends 'layout/basic.html' %}
 
+{% load static %}
+
 {% block content %}
 
+
 <div class="container">
-    <h2 class="text-center title-h1 mt-5"> {{ task.name }} </h2>
+    <h1 class="task-title">Удаление</h1>
 
-        <div class="list-group list-group-item ">
+    <div class="list-items">
+        <img class="list-image" src="{% static 'bboard/img/task.png' %}" alt="logo">
 
-            <form method="post">
-                {% csrf_token %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="task-content">
+                <p class="task-name">Задача: {{ task.name }}</p>
+                <p class="task-notes">{{ task.notes }}</p>
+                <p>Старт: {{ task.start }}</p>
+                <p>Статус: {{ task.is_completed }}</p>
+            </div>
 
-                <p>Задача: {{ task.name }}</p> <hr>
-                <p>Заметки: {{ task.notes }}</p> <hr>
-                <p>Старт: {{ task.start }}</p> <hr>
-                <p>Статус: {{ task.is_completed }}</p> <hr>
+            <div class="task-btns">
+                <a href="{% url 'list_tasks' %}"><button type="button" class="task-btn">Отмена</button></a>
+                <button class="task-btn" type="submit" value="Удалить">Удалить</button>
+            </div>
+        </form>
 
-                <small class="opacity-50 text-nowrap">
-                    <a href="{% url 'index' %}"><input type="button" value="Отмена"></a>
-                    <input type="submit" value="Удалить">
-                </small>
-            </form>
-
-        </div>
+    </div>
 
 </div>
+
 
 {% endblock %}

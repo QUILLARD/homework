@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 
@@ -15,7 +14,7 @@ class CreateTask(CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
-        context['title'] = 'Лист задач'
+        context['title'] = 'Добавление задачи'
 
         return context
 
@@ -35,14 +34,15 @@ class ListTasks(ListView):
 
 class UpdateTask(UpdateView):
     model = Task
+    form_class = TaskForm
     template_name = 'tasksheet/update_task.html'
-    fields = '__all__'
+    # fields = '__all__'
     success_url = reverse_lazy('list_tasks')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
-        context['title'] = 'Лист задач'
+        context['title'] = 'Редактирование'
 
         return context
 
@@ -56,6 +56,6 @@ class DeleteTask(DeleteView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
-        context['title'] = 'Лист задач'
+        context['title'] = 'Удаление'
 
         return context
