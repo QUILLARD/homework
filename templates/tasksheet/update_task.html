@@ -9,9 +9,12 @@
     <div class="create-form">
         <form class="btn-align" action="" method="post">
             {% csrf_token %}
-
-            <p>Название:  {{ form.name }}</p>
-            <p>Описание: {{ form.notes }}</p>
+            {% for f in form %}
+            <p class="authapp-label"><label class="form-label-authapp" for="f.id_for_label">{{ f.label }}:</label> {{ f }} </p>
+            <div class="form-error">
+                {{ f.errors }}
+            </div>
+        {% endfor %}
             <div class="btn-align">
                 <button class="create-btn" type="submit" value="Добавить">Изменить</button>
             </div>

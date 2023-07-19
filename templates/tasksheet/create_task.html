@@ -14,14 +14,14 @@
     <h1 class="create-title">{{ title }}</h1>
 
     <div class="create-form">
-        <form class="btn-align" action="" method="post">
+        <form action="" method="post">
             {% csrf_token %}
 
             <p>Название:  {{ form.name }}</p>
             <p>Описание: {{ form.notes }}</p>
-            <div class="btn-align">
-                <button class="create-btn" type="submit" value="Добавить">Добавить</button>
-            </div>
+
+            <button class="create-btn" type="submit" value="Добавить">Добавить</button>
+
         </form>
     </div>
 </div>

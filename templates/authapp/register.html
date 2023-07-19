@@ -7,8 +7,6 @@
 <div class="container">
     <h1 class="authapp-title">{{ title }}</h1>
 
-    <div class="form-error"> {{ form.non_field_errors }} </div>
-
     <form method="post">
         {% csrf_token %}
         {% for f in form %}
@@ -18,9 +16,8 @@
             </div>
         {% endfor %}
 
-            <button class="authapp-btn" type="submit">Войти</button>
+            <button class="authapp-btn" type="submit">Регистрация</button>
 
     </form>
 </div>
-
 {% endblock %}

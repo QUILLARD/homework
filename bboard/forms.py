@@ -13,7 +13,11 @@ class BbForm(forms.ModelForm):
         model = Bb
         fields = ('title', 'slug', 'content', 'image', 'price', 'rubric')
         widgets = {
-            'content': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
+            'title': forms.TextInput(attrs={'class': 'form-input'}),
+            'slug': forms.TextInput(attrs={'class': 'form-input'}),
+            'content': forms.Textarea(attrs={'cols': 35, 'rows': 5, 'style': 'margin-top: 6px;'}),
+            'price': forms.TextInput(attrs={'class': 'form-input'}),
+            'rubric': forms.TextInput(attrs={'class': 'form-input'}),
         }
 
     def clean_title(self):

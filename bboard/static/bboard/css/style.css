@@ -3,9 +3,19 @@
 body {
     font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
     color: #000;
+    height: 100%;
 }
 
-/* Bboard App */
+.flex-box {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content {
+    margin-top: 25px;
+}
 
 .header {
     background-color: #F1F1F1;
@@ -17,6 +27,8 @@ body {
     padding: 0px 30px;
     margin: 0 auto;
 }
+
+/* Bboard App */
 
 .header-nav {
     display: flex;
@@ -225,43 +237,16 @@ img.content-ads-image {
 	box-shadow: none;
 }
 
-/* Footer */
-
-footer {
-    background-color: #F1F1F1;
-    margin-top: 100px;
-    padding-top: 50px;
-}
-
-footer a {
-    color: #000;
-
-}
-
-.footer {
-    display: flex;
-    justify-content: space-around;
-}
-
-.footer-inc {
-    padding: 50px 0 0 0;
-    text-align: center;
-}
 
 /* Create Ad */
 
-.create-ad {
-    margin-top: 100px;
-}
 
-.form-label {
+.form-label-ad {
     display: inline-block;
     min-width: 200px;
     vertical-align: top;
     margin-top: 10px;
 }
-
-
 
 
 /* Tasksheet App */
@@ -331,3 +316,63 @@ footer a {
     font-size: 17px;
 
 }
+
+
+/* Authapp App */
+
+.authapp-title {
+    font-size: 32px;
+    margin: 40px 0;
+    text-align: center;
+}
+
+.form-input {
+    width: 300px;
+    font-size: 16px;
+    margin-top: 6px;
+}
+
+.form-label-authapp {
+    display: inline-block;
+    min-width: 150px;
+    vertical-align: top;
+    margin-top: 8px;
+}
+
+.form-error {
+    list-style: none;
+    padding: 0;
+    color: #CC0000;
+}
+
+.authapp-btn {
+    font-size: 14px;
+    padding: 10px;
+	min-width: 100px;
+	background-color: #333671;
+	color: #fff;
+	margin-left: 90%;
+}
+
+.authapp-label {
+    font-size: 18px;
+}
+
+
+/* Footer */
+
+footer {
+    max-width: 100vh;
+    margin: 50px auto 30px auto;
+}
+
+footer p {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.icons {
+    width: 43px;
+    margin: 0 10px;
+}
+

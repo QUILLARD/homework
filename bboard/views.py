@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, ListView, TemplateView, DetailView, FormView
+from django.views.generic import CreateView, ListView, TemplateView, DetailView, FormView, MonthArchiveView, \
+    DayArchiveView
 from django.views.generic.edit import ProcessFormView, UpdateView
 
 from bboard.forms import BbForm
@@ -31,7 +32,7 @@ class BbCreateView(LoginRequiredMixin, CreateView):
     template_name = 'bboard/create.html'
     form_class = BbForm
     success_url = reverse_lazy('index')
-    login_url = reverse_lazy('index')
+    login_url = reverse_lazy('authapp:login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -85,3 +86,11 @@ class BbDetailView(DetailView):
         context['title'] = context['bb']
 
         return context
+
+
+class BbDayArchiveView(DayArchiveView):
+    model = Bb
+    date_field = "time_create"
+    allow_future = True
+    month_format = '%m'
+    template_name = 'bboard/archive.html'
