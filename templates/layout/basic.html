@@ -76,10 +76,16 @@
 <nav class="list-pages">
     <ul>
         {% if page_obj.has_previous %}
+
         <a href="?page={{ page_obj.previous_page_number }}"><li class="page-num">&lt;</li></a>
+            {% if page_obj.previous_page_number > 3 %}
+                    <a href="?page=1"><li class="page-num">1</li></a>
+                    <li>...</li>
+            {% endif %}
         {% endif %}
 
         {% for p in paginator.page_range %}
+
 		    {% if page_obj.number == p %}
             <li class="page-num page-num-selected">{{ p }}</li>
 		    {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2  %}
@@ -88,6 +94,11 @@
         {% endfor %}
 
         {% if page_obj.has_next %}
+
+            {% if page_obj.next_page_number|add:2 < page_obj.paginator.num_pages %}
+                <li>...</li>
+                <a href="?page={{ page_obj.paginator.num_pages }}"><li class="page-num">{{ page_obj.paginator.num_pages }}</li></a>
+            {% endif %}
         <a href="?page={{ page_obj.next_page_number }}"><li class="page-num">&gt;</li></a>
         {% endif %}
 
