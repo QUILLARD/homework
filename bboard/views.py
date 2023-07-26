@@ -86,11 +86,3 @@ class BbDetailView(DetailView):
         context['title'] = context['bb']
 
         return context
-
-
-class BbDayArchiveView(DayArchiveView):
-    model = Bb
-    date_field = "time_create"
-    allow_future = True
-    month_format = '%m'
-    template_name = 'bboard/archive.html'

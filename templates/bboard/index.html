@@ -8,12 +8,11 @@
 
 {% all_rubrics as rubrics %}
 
-<div class="container">
-    <div class="content-row">
+<div class="rubrics-container">
         <div class="content-rubrics">
             {% for rubric in rubrics %}
-            <div class="content-rubrics-item">
-                <a href="{{ rubric.get_absolute_url }}" class="">
+            <div class="content-rubrics-item {% cycle 'rub-1' 'rub-2' 'rub-3' 'rub-4' 'rub-5' 'rub-6' 'rub-7' 'rub-8' 'rub-9' 'rub-10' 'rub-11' 'rub-12' 'rub-13' %}">
+                <a href="{{ rubric.get_absolute_url }}">
                     <div class="content-rubrics-items">
                         <h3 class="content-rubric-title">{{ rubric.name }}</h3>
                         <img class="content-rubric-image" src="{{ rubric.image.url }}">
@@ -22,6 +21,9 @@
             </div>
             {% endfor %}
         </div>
+</div>
+<div class="container">
+    <div class="content-row">
         <div class="content-ads">
             {% for bb in bbs %}
             <div class="content-ads-item">
@@ -32,8 +34,14 @@
                 <div class="content-ads-items">
                     <img class="content-ads-image" src="{{ bb.image.url }}">
                     <div class="content-ads-description">
-                        <h3>{{ bb.title }}</h3>
-                        <p>{{ bb.content|truncatewords:20 }}</p>
+                        <div>
+                            <h3>{{ bb.title }}</h3>
+                            </br>
+                            {% autoescape on %}
+                                <p>{{ bb.content|linebreaks|truncatewords:30 }}</p>
+                            {% endautoescape %}
+                        </div>
+
                         <p>${{ bb.price }}</p>
                     </div>
                 </div>

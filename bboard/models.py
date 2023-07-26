@@ -39,7 +39,7 @@ class Machine(models.Model):
 
 
 class Rubric(models.Model):
-    name = models.CharField(max_length=20, db_index=True, verbose_name="Название")
+    name = models.CharField(max_length=255, db_index=True, verbose_name="Название")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     image = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение')
 
@@ -57,7 +57,7 @@ class Rubric(models.Model):
 
 class Bb(models.Model):
     rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Рубрика')
-    title = models.CharField(max_length=50, verbose_name="Заголовок объявления")
+    title = models.CharField(max_length=255, verbose_name="Заголовок объявления")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     image = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение')
     content = models.TextField(null=True, blank=True, verbose_name="Описание")

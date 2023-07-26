@@ -15,7 +15,8 @@
                     <img class="content-ads-image" src="{{ bb.image.url }}">
                     <div class="content-ads-description">
                         <h3>{{ bb.title }}</h3>
-                        <p>{{ bb.content }}</p>
+                        </br>
+                        <p>{{ bb.content|linebreaks }}</p>
                         <p>${{ bb.price }}</p>
                     </div>
                 </div>

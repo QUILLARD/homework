@@ -116,17 +116,23 @@ body {
 
 /* Main Content Rubrics */
 
+.rubrics-container {
+    max-width: 1250px;
+    padding: 0px 30px;
+    margin: 0 auto;
+}
+
 .content-rubrics {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     padding: 60px 0;
     column-gap: 10px;
     row-gap: 10px;
 }
 
 .content-rubrics-item {
-    width: 170px;
-    height: 120px;
+    height: 100px;
     border: 0px solid black;
     border-radius: 12px;
     background-color: #F1F1F1;
@@ -140,10 +146,65 @@ body {
 
 .content-rubric-title {
     color: #000;
+    max-width: 180px;
 }
 
 .content-rubric-image {
+    align-self: flex-end;
+    position: absolute;
+    border-radius: 0 0 12px 0;
+}
 
+.rub-1 {
+    width: 140px;
+}
+
+.rub-2 {
+    width: 150px;
+}
+
+.rub-3 {
+    width: 130px;
+}
+
+.rub-4 {
+    width: 160px;
+}
+
+.rub-5 {
+    width: 150px;
+}
+
+.rub-6 {
+    width: 170px;
+}
+
+.rub-7 {
+    width: 140px;
+}
+
+.rub-8 {
+    width: 160px;
+}
+
+.rub-9 {
+    width: 190px;
+}
+
+.rub-10 {
+    width: 150px;
+}
+
+.rub-11 {
+    width: 210px;
+}
+
+.rub-12 {
+    width: 160px;
+}
+
+.rub-13 {
+    width: 180px;
 }
 
 /* Main Content Ads */
@@ -178,6 +239,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
 }
 
 p.content-ads-open {
@@ -192,9 +254,10 @@ p.content-ads-open a {
 }
 
 img.content-ads-image {
-	max-width: 150px;
-	height: auto;
+	max-width: 260px;
+	max-height: 280px;
 }
+
 
 /* List Pages */
 
