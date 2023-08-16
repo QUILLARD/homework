@@ -35,7 +35,7 @@
                     <a href="{% url 'index' %}" class="nav-link" aria-current="page">Главная</a>
                 </div>
                 <div class="dropdown dropdown-title">
-                    <span class="nav-link">Объявления</span>
+                    <a href="{% url 'index' %}" class="nav-link">Объявления</a>
                     <div class="dropdown-content">
                         <a href="{% url 'add' %}" class="dropdown">Создать объявление</a>
                     </div>
@@ -45,6 +45,13 @@
                     <div class="dropdown-content">
                         <a href="{% url 'task_add' %}" class="dropdown" style="width: 200px;">Создать задачу</a>
                         <a href="{% url 'list_tasks' %}" class="dropdown">Все задачи</a>
+                    </div>
+                </div>
+                <div class="dropdown dropdown-title">
+                    <a href="{% url 'ice_cream' %}" class="nav-link">Мороженое</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'create_ice_cream' %}" class="dropdown" style="width: 200px;">Добавить мороженое</a>
+
                     </div>
                 </div>
                 <div class="dropdown dropdown-title">
@@ -66,8 +73,7 @@
     </div>
 </header>
 
-<div class="content">
-
+<div>
 {% block content %}
 
 {% endblock %}

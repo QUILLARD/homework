@@ -6,12 +6,13 @@
 
 {% block content %}
 
+{% include 'includes/inc_rubric_menu.html' %}
 
         <div class="content-ads container">
             {% for bb in bbs %}
             <div class="content-ads-item">
                 <div class="content-ads-header">
-                    <p>Рубрика: <a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric.name }}</a></p>
+                    <p>Рубрика: {{ bb.rubric.name }}</p>
                     <p>Дата публикации: {{ bb.time_create|date:"d.m.Y" }}</p>
                 </div>
                 <div class="content-ads-items">

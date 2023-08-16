@@ -1,31 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.db.models import Count
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, TemplateView, DetailView, FormView, MonthArchiveView, \
     DayArchiveView
 from django.views.generic.edit import ProcessFormView, UpdateView
 
-from bboard.forms import BbForm
+from bboard.forms import BbForm, IceCreamForm
 from bboard.models import Bb, Rubric, AdvUser
-
-menu = [{'title': 'Главная', 'url_name': 'index'},
-        {'title': 'Объявления',
-         'sub_name_01': 'Создать объявление', 'sub_url_01': 'add'},
-        {'title': 'Задачи',
-         'sub_name_01': 'Посмотреть задачи', 'sub_url_01': 'list_tasks',
-         'sub_name_02': 'Создать задачу', 'sub_url_02': 'task_add'},
-        ]
-
-
-def count_bb():
-    result = dict()
-
-    for r in Rubric.objects.annotate(num_bbs=Count('bb')):
-        result.update({r.pk: r.num_bbs})
-
-    return result
+from .utils import *
 
 
 class BbCreateView(LoginRequiredMixin, CreateView):
@@ -37,21 +20,19 @@ class BbCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
-        context['title'] = 'Создание объявления'
+        context['title'] = 'Добавление объявления'
         return context
 
 
-class BbView(ListView):
-    paginate_by = 3
-    template_name = 'bboard/index.html'
+class BbView(DataMixin, ListView):
     model = Bb
-    context_object_name = 'bbs'
+    paginate_by = 6
+    template_name = 'bboard/index.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Главная страница'
-        context['count_bb'] = count_bb()
+        c_def = self.get_user_context(title='Главная страница')
+        context = dict(list(context.items()) + list(c_def.items()))
 
         return context
 
@@ -66,12 +47,12 @@ class BbByRubricView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
-        context['title'] = context['bbs'][0].rubric
+        context['title'] = Rubric.objects.get(slug=self.kwargs['rubric_slug'])
 
         return context
 
     def get_queryset(self):
-        return Bb.objects.filter(rubric__slug=self.kwargs['rubric_slug'])
+        return Bb.objects.filter(rubric__slug=self.kwargs['rubric_slug']).select_related('rubric')
 
 
 class BbDetailView(DetailView):
@@ -84,5 +65,29 @@ class BbDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['menu'] = menu
         context['title'] = context['bb']
+
+        return context
+
+
+class IceCreamListView(ListView):
+    model = IceCream
+    template_name = 'bboard/ice_cream.html'
+    context_object_name = 'ice_cream'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Мороженое'
+
+        return context
+
+
+class CreateIceCream(CreateView):
+    template_name = 'bboard/create_ice_cream.html'
+    form_class = IceCreamForm
+    success_url = reverse_lazy('ice_cream')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Добавление мороженого'
 
         return context

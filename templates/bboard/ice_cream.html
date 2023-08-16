@@ -1,0 +1,37 @@
+{% extends 'layout/basic.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <h1 class="create-title">{{ title }}</h1>
+    <hr>
+    <p class="text-justify">Моро́женое — пищевой продукт-десерт, представляющий собой замороженную в процессе непрерывного взбивания массу,
+        содержащую в основе своей питательные, вкусовые, ароматические и эмульгирующие вещества. К мороженому нередко
+        относят также фруктовый лёд, получаемый простым замораживанием фруктово-ягодных соков и пюре.</p>
+    <hr>
+
+    {% for ic in ice_cream %}
+
+    <div class="content-ads-item">
+        <div class="content-ads-header">
+            <p>{{ ic.name }}</p>
+
+        </div>
+        <div class="content-ads-items">
+            <img class="content-ads-image" src="{{ ic.image.url }}">
+            <div class="content-ads-description">
+                <div>
+                    <p>{{ ic.description }}</p>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from bboard.models import Bb
+from bboard.models import Bb, IceCream
 
 
 class BbForm(forms.ModelForm):
@@ -27,3 +27,12 @@ class BbForm(forms.ModelForm):
 
         return title
 
+
+class IceCreamForm(forms.ModelForm):
+    class Meta:
+        model = IceCream
+        fields = ('name', 'description', 'image')
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-input'}),
+            'description': forms.Textarea(attrs={'cols': 35, 'rows': 5, 'style': 'margin-top: 20px;'}),
+        }

@@ -66,7 +66,7 @@ class Bb(models.Model):
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время редактирования')
 
     def __str__(self):
-        return f'Объявление: {self.title}'
+        return self.title
 
     class Meta:
         verbose_name = "Объявление"
@@ -77,3 +77,11 @@ class Bb(models.Model):
         return reverse('bb_detail', kwargs={'bb_slug': self.slug})
 
 
+class IceCream(models.Model):
+    name = models.CharField(max_length=60, db_index=True, verbose_name='Наименование')
+    description = models.CharField(max_length=255, verbose_name='Описание')
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение')
+
+    class Meta:
+        verbose_name = 'Мороженое'
+        verbose_name_plural = 'Мороженое'

@@ -6,29 +6,15 @@
 
 {% block content %}
 
-{% all_rubrics as rubrics %}
+{% include 'includes/inc_rubric_menu.html' %}
 
-<div class="rubrics-container">
-        <div class="content-rubrics">
-            {% for rubric in rubrics %}
-            <div class="content-rubrics-item {% cycle 'rub-1' 'rub-2' 'rub-3' 'rub-4' 'rub-5' 'rub-6' 'rub-7' 'rub-8' 'rub-9' 'rub-10' 'rub-11' 'rub-12' 'rub-13' %}">
-                <a href="{{ rubric.get_absolute_url }}">
-                    <div class="content-rubrics-items">
-                        <h3 class="content-rubric-title">{{ rubric.name }}</h3>
-                        <img class="content-rubric-image" src="{{ rubric.image.url }}">
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-</div>
 <div class="container">
     <div class="content-row">
         <div class="content-ads">
-            {% for bb in bbs %}
+            {% for bb in page_obj %}
             <div class="content-ads-item">
                 <div class="content-ads-header">
-                    <p>Рубрика: <a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric.name }}</a></p>
+                    <p>Рубрика: <a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric}}</a></p>
                     <p>Дата публикации: {{ bb.time_create|date:"d.m.Y" }}</p>
                 </div>
                 <div class="content-ads-items">
