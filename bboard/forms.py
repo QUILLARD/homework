@@ -36,3 +36,8 @@ class IceCreamForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-input'}),
             'description': forms.Textarea(attrs={'cols': 35, 'rows': 5, 'style': 'margin-top: 20px;'}),
         }
+
+
+class UserCheckForm(forms.Form):
+    name = forms.CharField(max_length=10, label='Имя')
+    age = forms.IntegerField(label='Возраст')

@@ -1,12 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, TemplateView, DetailView, FormView, MonthArchiveView, \
     DayArchiveView
 from django.views.generic.edit import ProcessFormView, UpdateView
 
-from bboard.forms import BbForm, IceCreamForm
+from bboard.forms import BbForm, IceCreamForm, UserCheckForm
 from bboard.models import Bb, Rubric, AdvUser
 from .utils import *
 
@@ -91,3 +92,21 @@ class CreateIceCream(CreateView):
         context['title'] = 'Добавление мороженого'
 
         return context
+
+
+def user_check(request):
+    if request.method == 'POST':
+        form = UserCheckForm(request.POST)
+
+        if form.is_valid():
+            if form.cleaned_data['age'] < 18:
+                form.add_error('age', 'Вам нет 18-ти лет!')
+            elif form.cleaned_data['name'][0].islower():
+                form.add_error('name', 'Введите имя с большой буквы!')
+            else:
+                return redirect('index')
+
+    else:
+        form = UserCheckForm()
+
+    return render(request, 'bboard/user_check.html', {'form': form})
