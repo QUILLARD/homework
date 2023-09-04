@@ -32,7 +32,7 @@
 <!--                    <a href="#" class="nav-link" >Регистрация</a> <a href="#" class="nav-link">Войти</a>-->
 <!--                </ul>-->
                 <div class="dropdown dropdown-title">
-                    <a href="{% url 'usercheck' %}" class="nav-link" aria-current="page">Домашнаяя работа 26</a>
+                    <a href="{% url 'customers' %}" class="nav-link" aria-current="page">Домашняя работа 27</a>
                 </div>
                 <div class="dropdown dropdown-title">
                     <a href="{% url 'index' %}" class="nav-link" aria-current="page">Главная</a>
@@ -44,19 +44,19 @@
                     </div>
                 </div>
                 <div class="dropdown dropdown-title">
-                    <span class="nav-link">Задачи</span>
+                    <a class="nav-link">Задачи</a>
                     <div class="dropdown-content">
                         <a href="{% url 'task_add' %}" class="dropdown" style="width: 200px;">Создать задачу</a>
                         <a href="{% url 'list_tasks' %}" class="dropdown">Все задачи</a>
                     </div>
                 </div>
-                <div class="dropdown dropdown-title">
-                    <a href="{% url 'ice_cream' %}" class="nav-link">Мороженое</a>
-                    <div class="dropdown-content">
-                        <a href="{% url 'create_ice_cream' %}" class="dropdown" style="width: 200px;">Добавить мороженое</a>
+<!--                <div class="dropdown dropdown-title">-->
+<!--                    <a href="{% url 'ice_cream' %}" class="nav-link">Мороженое</a>-->
+<!--                    <div class="dropdown-content">-->
+<!--                        <a href="{% url 'create_ice_cream' %}" class="dropdown" style="width: 200px;">Добавить мороженое</a>-->
 
-                    </div>
-                </div>
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="dropdown dropdown-title">
                     {% if not request.user.is_authenticated %}
                         <a class="nav-link" href="{% url 'authapp:register' %}">Регистрация</a>

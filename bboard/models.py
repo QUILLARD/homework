@@ -86,3 +86,9 @@ class IceCream(models.Model):
         verbose_name = 'Мороженое'
         verbose_name_plural = 'Мороженое'
 
+
+# Домашняя работа 27
+class Customers(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Имя')
+    phone = models.IntegerField(verbose_name='Телефон')
+    city = models.CharField(max_length=50, verbose_name='Город')

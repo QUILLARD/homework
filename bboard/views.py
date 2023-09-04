@@ -1,8 +1,11 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.forms import inlineformset_factory, modelformset_factory, BaseModelFormSet
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
+from django.views import View
 from django.views.generic import CreateView, ListView, TemplateView, DetailView, FormView, MonthArchiveView, \
     DayArchiveView
 from django.views.generic.edit import ProcessFormView, UpdateView
@@ -110,3 +113,32 @@ def user_check(request):
         form = UserCheckForm()
 
     return render(request, 'bboard/user_check.html', {'form': form})
+
+
+# Домашняя работа 27
+class CustomerBlackListFormSet(BaseModelFormSet):
+    black_list = ['Макс', 'Сергей']
+
+    def clean(self):
+        super().clean()
+        names = [form.cleaned_data['name'] for form in self.forms if 'name' in form.cleaned_data]
+        for name in self.black_list:
+            if name in names:
+                raise ValidationError(f'{name} в черном списке!')
+
+
+class Customer(View):
+    template_name = 'bboard/customers.html'
+    CustomerFormset = modelformset_factory(Customers, fields=('name', 'phone', 'city'), extra=2, can_delete=True, formset=CustomerBlackListFormSet)
+
+    def get(self, request):
+        formset = self.CustomerFormset()
+        return render(request, self.template_name, {'formset': formset})
+
+    def post(self, request):
+        formset = self.CustomerFormset(request.POST)
+        if formset.is_valid():
+            formset.save()
+            return redirect('index')
+        else:
+            return render(request, self.template_name, {'formset': formset})
