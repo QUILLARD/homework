@@ -19,6 +19,7 @@
         {% endfor %}
 
             <button class="authapp-btn" type="submit">Войти</button>
+            <a href="{% url 'authapp:password_reset' %}"><button type="button" class="authapp-btn">Сбросить пароль</button></a>
 
     </form>
 </div>

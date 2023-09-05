@@ -31,9 +31,7 @@
 <!--                    {% endfor %}-->
 <!--                    <a href="#" class="nav-link" >Регистрация</a> <a href="#" class="nav-link">Войти</a>-->
 <!--                </ul>-->
-                <div class="dropdown dropdown-title">
-                    <a href="{% url 'customers' %}" class="nav-link" aria-current="page">Домашняя работа 27</a>
-                </div>
+
                 <div class="dropdown dropdown-title">
                     <a href="{% url 'index' %}" class="nav-link" aria-current="page">Главная</a>
                 </div>
@@ -63,9 +61,16 @@
                     |
                         <a class="nav-link" href="{% url 'authapp:login' %}">Войти</a>
                     {% else %}
+
                         <a class="nav-link">{{ user.username }}</a>
-                    |
+                    <div class="dropdown-content">
+                        {% if user.is_superuser or user.is_staff %}
+                        <a class="nav-link" href="{% url 'admin:index' %}">Админ-панель</a>
+                        {% endif %}
+                        <a class="nav-link" href="{% url 'authapp:password_change' %}" >Сменить пароль</a>
                         <a class="nav-link" href="{% url 'authapp:logout' %}">Выйти</a>
+                    </div>
+
                     {% endif %}
 
                 </div>
@@ -130,5 +135,6 @@
 
 </footer>
 </div>
+
 </body>
 </html>
