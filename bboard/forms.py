@@ -46,6 +46,7 @@ class UserCheckForm(forms.Form):
     age = forms.IntegerField(label='Возраст')
 
 
+# Домашнее задание 32
 class FeedbackForm(forms.Form):
     name = forms.CharField(max_length=20, label='Имя')
     email = forms.EmailField(label='Почта')

@@ -12,5 +12,5 @@ urlpatterns = [
     path('ice_cream/', IceCreamListView.as_view(), name='ice_cream'),
     path('usercheck/', user_check, name='usercheck'),
     path('customers/', Customer.as_view(), name='customers'),
-    path('feedback/', FeedbackFormView.as_view(), name='feedback')
+    path('feedback/', FeedbackFormView.as_view(), name='feedback'), # Домашнее задание 32
 ]

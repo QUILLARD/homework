@@ -142,7 +142,7 @@ class Customer(View):
         else:
             return render(request, self.template_name, {'formset': formset})
 
-
+# Домашнее задание 32
 class FeedbackFormView(FormView):
     form_class = FeedbackForm
     template_name = 'bboard/feedback.html'
