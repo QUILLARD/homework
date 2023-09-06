@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
+    'captcha',
 
     'bboard.apps.BboardConfig',
     'tasksheet.apps.TasksheetConfig',

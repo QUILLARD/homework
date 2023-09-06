@@ -10,7 +10,7 @@ from django.views.generic import CreateView, ListView, TemplateView, DetailView,
     DayArchiveView
 from django.views.generic.edit import ProcessFormView, UpdateView
 
-from bboard.forms import BbForm, IceCreamForm, UserCheckForm
+from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm
 from bboard.models import Bb, Rubric, AdvUser
 from .utils import *
 
@@ -115,7 +115,6 @@ def user_check(request):
     return render(request, 'bboard/user_check.html', {'form': form})
 
 
-# Домашняя работа 27
 class CustomerBlackListFormSet(BaseModelFormSet):
     black_list = ['Макс', 'Сергей']
 
@@ -142,3 +141,18 @@ class Customer(View):
             return redirect('index')
         else:
             return render(request, self.template_name, {'formset': formset})
+
+
+class FeedbackFormView(FormView):
+    form_class = FeedbackForm
+    template_name = 'bboard/feedback.html'
+    success_url = reverse_lazy('index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Обратная связь'
+        return context
+
+    def form_valid(self, form):
+        return redirect('index')
+

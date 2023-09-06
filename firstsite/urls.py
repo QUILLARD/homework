@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('bboard.urls')),
     path('tasksheet/', include('tasksheet.urls')),
     path('auth/', include('authapp.urls', namespace='authapp')),
+    path('captcha/', include('captcha.urls')),
 ]
 
 if settings.DEBUG:

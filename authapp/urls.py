@@ -14,5 +14,3 @@ urlpatterns = [
     path('accounts/password_change/password_change_done/', PasswordChangeDoneView.as_view(template_name='authapp/password_changed.html'), name='password_change_done'),
     path('accounts/password_reset/', PasswordResetView.as_view(template_name='authapp/reset_password.html', subject_template_name='authapp/reset_subject.txt', email_template_name='authapp/reset_email.txt'), name='password_reset'),
 ]
-
-# 4f9e9c
