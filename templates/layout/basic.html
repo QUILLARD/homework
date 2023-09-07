@@ -9,6 +9,7 @@
     <title>{% block title %}{{ title }}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'bboard/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'bboard/css/media.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     </head>
 <body>
 <div class="flex-box">
@@ -32,6 +33,9 @@
 <!--                    <a href="#" class="nav-link" >Регистрация</a> <a href="#" class="nav-link">Войти</a>-->
 <!--                </ul>-->
                 <div class="dropdown dropdown-title">
+                    <a href="{% url 'students' %}" class="nav-link" aria-current="page">Домашнее задание 29</a>
+                </div>
+                <div class="dropdown dropdown-title">
                     <a href="{% url 'index' %}" class="nav-link" aria-current="page">Главная</a>
                 </div>
                 <div class="dropdown dropdown-title">
@@ -47,9 +51,9 @@
                         <a href="{% url 'list_tasks' %}" class="dropdown">Все задачи</a>
                     </div>
                 </div>
-                <div class="dropdown dropdown-title">
-                    <a href="{% url 'feedback' %}" class="nav-link">Обратная связь (Домашняя работа 32)</a>
-                </div>
+<!--                <div class="dropdown dropdown-title">-->
+<!--                    <a href="{% url 'feedback' %}" class="nav-link">Обратная связь</a>-->
+<!--                </div>-->
 <!--                <div class="dropdown dropdown-title">-->
 <!--                    <a href="{% url 'ice_cream' %}" class="nav-link">Мороженое</a>-->
 <!--                    <div class="dropdown-content">-->
@@ -72,11 +76,14 @@
                         <a class="nav-link" href="{% url 'authapp:password_change' %}" >Сменить пароль</a>
                         <a class="nav-link" href="{% url 'authapp:logout' %}">Выйти</a>
                     </div>
-
                     {% endif %}
-
                 </div>
-
+                <div class="dropdown dropdown-title">
+                    <form class="form-search">
+                        <input class="input-search" type="text" placeholder="Искать здесь...">
+                        <button class="button-search" type="submit"></button>
+                    </form>
+                </div>
             </nav>
 
         </div>

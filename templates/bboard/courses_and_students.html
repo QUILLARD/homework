@@ -1,0 +1,29 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %} {{ title }} {% endblock title %}
+{% block content %}
+
+	<div class="content-ads container">
+        <h1 class="create-title">{{ title }}</h1>
+            {% for student in students %}
+            <div class="content-ads-item">
+                <div class="content-ads-header">
+                    <p>Студент: {{ student.pk }}</p>
+                    <p>Дата рождения: {{ student.birth_date }}</p>
+                </div>
+                <div class="content-ads-items">
+                    <img class="content-ads-image" src="{{ student.image.url }}">
+                    <div class="content-ads-description">
+                        <div>
+                            <h1 class="student-name">{{ student.first_name }} {{ student.last_name }}</h1>
+                            </br>
+                            <p>{{ student.content }}</p>
+                        </div>
+                        <p class="content-ads-open"><span style="color: red;">Выборка по определенным полям>>>>>>>></span>   <a href="{{ student.get_absolute_url }}">Подробнее</a></p>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+{% endblock content %}

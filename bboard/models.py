@@ -91,3 +91,46 @@ class Customers(models.Model):
     name = models.CharField(max_length=50, verbose_name='Имя')
     phone = models.IntegerField(verbose_name='Телефон')
     city = models.CharField(max_length=50, verbose_name='Город')
+
+# Домашнее задание 29
+class Student(models.Model):
+    first_name = models.CharField(max_length=50, verbose_name='Имя')
+    last_name = models.CharField(max_length=50, verbose_name='Фамилия')
+    birth_date = models.DateField(verbose_name='Дата рождения')
+    content = models.TextField(verbose_name='О себе')
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение')
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        verbose_name = 'Студент'
+        verbose_name_plural = 'Студенты'
+
+    def get_absolute_url(self):
+        return reverse('visits', kwargs={'st_id': self.pk})
+
+# Домашнее задание 29
+class Course(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Название')
+    students = models.ManyToManyField('Student', through='Kit', through_fields=('course', 'student'))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Курсы'
+
+# Домашнее задание 29
+class Kit(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='Студент')
+    visits = models.IntegerField(verbose_name='Количество посещений')
+
+    def __str__(self):
+        return f'{self.course.name} - {self.student.first_name} {self.student.last_name}'
+
+    class Meta:
+        verbose_name = 'Посещение'
+        verbose_name_plural = 'Посещения'

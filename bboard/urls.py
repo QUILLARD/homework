@@ -1,7 +1,7 @@
 from django.urls import path
 
 from bboard.views import BbCreateView, BbView, BbByRubricView, BbDetailView, IceCreamListView, CreateIceCream, \
-    user_check, Customer, FeedbackFormView
+    user_check, Customer, FeedbackFormView, StudentsView, StudentsVisits
 
 urlpatterns = [
     path('', BbView.as_view(), name='index'),
@@ -12,5 +12,7 @@ urlpatterns = [
     path('ice_cream/', IceCreamListView.as_view(), name='ice_cream'),
     path('usercheck/', user_check, name='usercheck'),
     path('customers/', Customer.as_view(), name='customers'),
-    path('feedback/', FeedbackFormView.as_view(), name='feedback'), # Домашнее задание 32
+    path('feedback/', FeedbackFormView.as_view(), name='feedback'),
+    path('students/', StudentsView.as_view(), name='students'),
+    path('students/<int:st_id>/', StudentsVisits.as_view(), name='visits'), # Домашнее задание 29
 ]

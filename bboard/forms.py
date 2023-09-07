@@ -20,7 +20,7 @@ class BbForm(forms.ModelForm):
             'slug': forms.TextInput(attrs={'class': 'form-input'}),
             'content': forms.Textarea(attrs={'cols': 35, 'rows': 5, 'style': 'margin-top: 6px;'}),
             'price': forms.TextInput(attrs={'class': 'form-input'}),
-            'rubric': forms.TextInput(attrs={'class': 'form-input'}),
+            'rubric': forms.Select(attrs={'class': 'form-input'}),
         }
 
     def clean_title(self):
@@ -46,7 +46,6 @@ class UserCheckForm(forms.Form):
     age = forms.IntegerField(label='Возраст')
 
 
-# Домашнее задание 32
 class FeedbackForm(forms.Form):
     name = forms.CharField(max_length=20, label='Имя')
     email = forms.EmailField(label='Почта')
