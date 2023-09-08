@@ -17,7 +17,16 @@
 <header class="header">
     <div class="container">
         <div class="header-nav">
-            <a href="{% url 'index' %}" class="logo">NAVARO</a>
+            <div class="dropdown dropdown-title">
+                <a class="menu-img"><img src="{% static 'bboard/img/icons/menu_navigation.svg' %}"></a>
+                <a href="{% url 'index' %}" class="logo">NAVARO</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'students' %}" class="nav-link" aria-current="page">Студенты</a>
+                        <a href="{% url 'feedback' %}" class="nav-link">Обратная связь</a>
+                    </div>
+                </div>
+
+
             <nav class="nav">
 <!--                <ul class="nav-list">-->
 <!--                    {% for m in menu %}-->
@@ -32,9 +41,6 @@
 <!--                    {% endfor %}-->
 <!--                    <a href="#" class="nav-link" >Регистрация</a> <a href="#" class="nav-link">Войти</a>-->
 <!--                </ul>-->
-                <div class="dropdown dropdown-title">
-                    <a href="{% url 'students' %}" class="nav-link" aria-current="page">Домашнее задание 29</a>
-                </div>
                 <div class="dropdown dropdown-title">
                     <a href="{% url 'index' %}" class="nav-link" aria-current="page">Главная</a>
                 </div>
@@ -51,9 +57,7 @@
                         <a href="{% url 'list_tasks' %}" class="dropdown">Все задачи</a>
                     </div>
                 </div>
-<!--                <div class="dropdown dropdown-title">-->
-<!--                    <a href="{% url 'feedback' %}" class="nav-link">Обратная связь</a>-->
-<!--                </div>-->
+
 <!--                <div class="dropdown dropdown-title">-->
 <!--                    <a href="{% url 'ice_cream' %}" class="nav-link">Мороженое</a>-->
 <!--                    <div class="dropdown-content">-->
@@ -64,7 +68,7 @@
                 <div class="dropdown dropdown-title">
                     {% if not request.user.is_authenticated %}
                         <a class="nav-link" href="{% url 'authapp:register' %}">Регистрация</a>
-                    |
+                    <span style="color: #FFF;">|</span>
                         <a class="nav-link" href="{% url 'authapp:login' %}">Войти</a>
                     {% else %}
 

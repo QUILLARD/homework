@@ -45,6 +45,7 @@ body {
     font-size: 25px;
     padding: 0 9px 3px 0;
     line-height: 1;
+    margin-left: 15px;
 }
 
 .logo::after {
@@ -139,9 +140,9 @@ body {
 }
 
 .content-rubrics-item:hover {
-    -moz-text-shadow: 10px 2px 5px #ff7300;
-    -webkit-text-shadow: 1px 2px 5px #ff7300;
-    text-shadow: 1px 2px 5px #ff7300;
+    -moz-text-shadow: 10px 2px 5px #4f9e9c;
+    -webkit-text-shadow: 1px 2px 5px #4f9e9c;
+    text-shadow: 1px 2px 5px #4f9e9c;
 
 }
 
@@ -256,7 +257,7 @@ p.content-ads-open {
 p.content-ads-open a {
 	padding: 10px;
 	min-width: 100px;
-	background-color: #333671;
+	background-color: #4f9e9c;
 	color: #fff;
 }
 
@@ -333,10 +334,11 @@ img.content-ads-image {
 }
 
 .create-btn {
+    border: None;
     margin-left: 90%;
     padding: 10px;
-	min-width: 100px;
-	background-color: #333671;
+	width: 100px;
+	background-color: #4f9e9c;
 	color: #fff;
 }
 
@@ -369,10 +371,11 @@ img.content-ads-image {
 }
 
 .task-btn {
+    border: None;
     font-size: 14px;
     padding: 10px;
 	min-width: 100px;
-	background-color: #333671;
+	background-color: #4f9e9c;
 	color: #fff;
 }
 
@@ -416,10 +419,11 @@ img.content-ads-image {
 }
 
 .authapp-btn {
+    border: None;
     font-size: 14px;
     padding: 10px;
 	min-width: 100px;
-	background-color: #333671;
+	background-color: #4f9e9c;
 	color: #fff;
 	margin-left: 90%;
 }
@@ -465,7 +469,7 @@ footer p {
 
 .form-search {
   position: relative;
-  width: 300px;
+  width: 200px;
   margin: 0 auto;
 }
 
