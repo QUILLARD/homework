@@ -1,0 +1,57 @@
+{% extends 'layout/basic.html' %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="content-row">
+        <div class="content-ads">
+            {% for book in books %}
+            <div class="content-ads-item">
+                <div class="content-ads-header">
+                    <p>Книга: {{ book.book.name }}</p>
+                    <p>Дата публикации: {{ book.created_at }}</p>
+                </div>
+                <div class="content-ads-items">
+                    <div class="content-ads-description">
+                        <div>
+                            <h1 class="student-name" style="text-align: center;">{{ book.book.author }}</h1>
+                            </br>
+                            {% autoescape on %}
+                                <p>{{ book.book.description|linebreaks }}</p>
+                            {% endautoescape %}
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+            </br>
+                <hr>
+                </br>
+               <div class="content-ads-item">
+                <div class="content-ads-items">
+                    <div class="content-ads-description">
+                        <div>
+                            <h1 class="student-name" style="text-align: center;">Рецензия</h1>
+                            </br>
+                            {% autoescape on %}
+                                <p>{{ book.text|linebreaks }}</p>
+                            {% endautoescape %}
+                        </div>
+
+                    </div>
+                </div>
+
+<p class="content-ads-open">Автор: {{ book.user }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock content %}

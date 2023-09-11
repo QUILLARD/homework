@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from bboard.models import Bb, Rubric, Course, Student, Kit
+from bboard.models import Bb, Rubric, Course, Student, Kit, Authors, Books, Reviews
 
 
 class BbAdmin(admin.ModelAdmin):
@@ -42,9 +42,29 @@ class StudentAdmin(admin.ModelAdmin):
 class KitAdmin(admin.ModelAdmin):
     list_display = ('id', 'course', 'student', 'visits')
 
+# Домашнее задание 30
+class AuthorsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'first_name', 'last_name', 'created_at', 'updated_at')
+    list_display_links = ('id', 'first_name', 'last_name')
+
+# Домашнее задание 30
+class BooksAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'author', 'created_at', 'updated_at', 'price')
+    list_display_links = ('id', 'name')
+
+# Домашнее задание 30
+class ReviewsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'book', 'user', 'created_at', 'updated_at')
+    list_display_links = ('id', 'book')
+
 
 admin.site.register(Bb, BbAdmin)
 admin.site.register(Rubric, RubricAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Kit, KitAdmin)
+
+# Домашнее задание 30
+admin.site.register(Authors, AuthorsAdmin)
+admin.site.register(Books, BooksAdmin)
+admin.site.register(Reviews, ReviewsAdmin)

@@ -156,7 +156,7 @@ class FeedbackFormView(FormView):
     def form_valid(self, form):
         return redirect('index')
 
-# Домашнее задание 29
+
 class StudentsView(ListView):
     template_name = 'bboard/courses_and_students.html'
     model = Student
@@ -168,7 +168,7 @@ class StudentsView(ListView):
 
         return context
 
-# Домашнее задание 29
+
 class StudentsVisits(ListView):
     template_name = 'bboard/visits.html'
     context_object_name = 'visits'
@@ -178,6 +178,18 @@ class StudentsVisits(ListView):
         context['title'] = Student.objects.get(pk=self.kwargs['st_id'])
         return context
 
-    # Выборка только по полям 'количество посещений' и 'наименование курса'
     def get_queryset(self):
         return Kit.objects.filter(student=self.kwargs['st_id']).prefetch_related('course', 'student').values('visits', 'course__name')
+
+# Домашнее задание 30
+class BooksReview(ListView):
+    template_name = 'bboard/books.html'
+    context_object_name = 'books'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        content = super().get_context_data(**kwargs)
+        content['title'] = 'Книги и Рецензии'
+        return content
+
+    def get_queryset(self):
+        return Reviews.objects.all().select_related('book', 'user')

@@ -23,6 +23,7 @@
                     <div class="dropdown-content">
                         <a href="{% url 'students' %}" class="nav-link" aria-current="page">Студенты</a>
                         <a href="{% url 'feedback' %}" class="nav-link">Обратная связь</a>
+                        <a href="{% url 'books' %}" class="nav-link">Книги и Рецензии</a>
                     </div>
                 </div>
 
@@ -41,6 +42,9 @@
 <!--                    {% endfor %}-->
 <!--                    <a href="#" class="nav-link" >Регистрация</a> <a href="#" class="nav-link">Войти</a>-->
 <!--                </ul>-->
+                <div class="dropdown dropdown-title">
+                    <a href="{% url 'books' %}" class="nav-link" aria-current="page">Д/З 30</a>
+                </div>
                 <div class="dropdown dropdown-title">
                     <a href="{% url 'index' %}" class="nav-link" aria-current="page">Главная</a>
                 </div>

@@ -92,7 +92,7 @@ class Customers(models.Model):
     phone = models.IntegerField(verbose_name='Телефон')
     city = models.CharField(max_length=50, verbose_name='Город')
 
-# Домашнее задание 29
+
 class Student(models.Model):
     first_name = models.CharField(max_length=50, verbose_name='Имя')
     last_name = models.CharField(max_length=50, verbose_name='Фамилия')
@@ -110,7 +110,7 @@ class Student(models.Model):
     def get_absolute_url(self):
         return reverse('visits', kwargs={'st_id': self.pk})
 
-# Домашнее задание 29
+
 class Course(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название')
     students = models.ManyToManyField('Student', through='Kit', through_fields=('course', 'student'))
@@ -122,7 +122,7 @@ class Course(models.Model):
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
 
-# Домашнее задание 29
+
 class Kit(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс')
     student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='Студент')
@@ -134,3 +134,51 @@ class Kit(models.Model):
     class Meta:
         verbose_name = 'Посещение'
         verbose_name_plural = 'Посещения'
+
+# Домашнее задание 30
+class TimeStampedModel(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата редактирования')
+
+    class Meta:
+        abstract = True
+
+# Домашнее задание 30
+class Authors(TimeStampedModel):
+    first_name = models.CharField(max_length=100, verbose_name='Имя')
+    last_name = models.CharField(max_length=100, verbose_name='Фамилия')
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+    class Meta:
+        verbose_name = 'Автор'
+        verbose_name_plural = 'Авторы'
+
+# Домашнее задание 30
+class Books(TimeStampedModel):
+    author = models.OneToOneField(Authors, on_delete=models.CASCADE, verbose_name='Автор')
+    name = models.CharField(max_length=100, verbose_name='Наименование')
+    description = models.TextField(verbose_name='Описание')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Книга'
+        verbose_name_plural = 'Книги'
+
+# Домашнее задание 30
+class Reviews(TimeStampedModel):
+    book = models.ForeignKey(Books, on_delete=models.CASCADE, related_name='reviews', verbose_name='Книга')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    text = models.TextField(verbose_name='Рецензия')
+    rating = models.PositiveIntegerField(choices=[(i, str(i)) for i in range(1, 6)], verbose_name='Рейтинг')
+
+    def __str__(self):
+        return f'Рецензия - "{self.book.name}" от {self.user.username}'
+
+    class Meta:
+        verbose_name = 'Рецензия'
+        verbose_name_plural = 'Рецензия'
