@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db import transaction
+from django.db.transaction import atomic
 from django.forms import inlineformset_factory, modelformset_factory, BaseModelFormSet
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
@@ -13,6 +15,15 @@ from django.views.generic.edit import ProcessFormView, UpdateView
 from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm
 from bboard.models import Bb, Rubric, AdvUser
 from .utils import *
+
+
+def count_bb():
+    result = dict()
+
+    for r in Rubric.objects.annotate(num_bbs=Count('bb')):
+        result.update({r.pk: r.num_bbs})
+
+    return result
 
 
 class BbCreateView(LoginRequiredMixin, CreateView):
@@ -137,8 +148,12 @@ class Customer(View):
     def post(self, request):
         formset = self.CustomerFormset(request.POST)
         if formset.is_valid():
-            formset.save()
-            return redirect('index')
+            with transaction.atomic(): # Домашняя работа 31
+                try:
+                    formset.save()
+                    return redirect('index')
+                except Exception:
+                    transaction.rollback()
         else:
             return render(request, self.template_name, {'formset': formset})
 
@@ -181,7 +196,7 @@ class StudentsVisits(ListView):
     def get_queryset(self):
         return Kit.objects.filter(student=self.kwargs['st_id']).prefetch_related('course', 'student').values('visits', 'course__name')
 
-# Домашнее задание 30
+
 class BooksReview(ListView):
     template_name = 'bboard/books.html'
     context_object_name = 'books'
@@ -193,3 +208,16 @@ class BooksReview(ListView):
 
     def get_queryset(self):
         return Reviews.objects.all().select_related('book', 'user')
+
+# Домашняя работа 31
+class RubricsCount(ListView):
+    template_name = 'bboard/rubrics_count.html'
+    model = Rubric
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Все рубрики'
+        context['rubrics'] = Rubric.objects.order_by_bb_count()
+        context['count_bb'] = count_bb()
+
+        return context

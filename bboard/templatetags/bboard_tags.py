@@ -12,3 +12,8 @@ def get_rubrics():
 @register.simple_tag()
 def get_bbs():
     return Bb.objects.all()
+
+
+@register.filter
+def count_bbs(count_bb, pk):
+    return count_bb.get(pk)

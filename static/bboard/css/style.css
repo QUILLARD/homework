@@ -516,3 +516,8 @@ footer p {
     color: #FFFFFF;
     font-size: 20px;
 }
+
+.rubrics_count {
+    display: block;
+}
+

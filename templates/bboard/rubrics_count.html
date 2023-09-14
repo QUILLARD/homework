@@ -1,0 +1,25 @@
+{% extends "layout/basic.html" %}
+{% load bboard_tags %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+
+        <div class="rubrics_count container">
+            <h1 class="create-title">{{ title }}</h1>
+            {% for rubric in rubrics %}
+                <a href="{{ rubric.get_absolute_url }}">
+            <div class="content-rubrics-item" style="margin: 15px 0;">
+                    <div class="content-rubrics-items">
+                        <h3 class="content-rubric-title">{{ rubric.name }} {% if count_bb %} ({{ count_bb|count_bbs:rubric.pk }}) {% endif %}</h3>
+                        <img class="content-rubric-image" src="{{ rubric.image.url }}">
+                    </div>
+            </div>
+                </a>
+
+            {% endfor %}
+        </div>
+
+{% endblock %}

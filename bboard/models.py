@@ -5,6 +5,24 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 
+# Домашняя работа 31
+class RubricQuerySet(models.QuerySet):
+    def order_by_bb_count(self):
+        return self.annotate(cnt=models.Count('bb')).order_by('-cnt')
+
+# Домашняя работа 31
+class RubricManager(models.Manager):
+    def get_queryset(self):
+        return RubricQuerySet(self.model, using=self._db)
+
+    def order_by_bb_count(self):
+        return self.get_queryset().order_by_bb_count()
+
+# Домашняя работа 31
+class BbManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().order_by('price')
+
 
 def get_positive_numbers(num):
     if num < 0:
@@ -42,6 +60,7 @@ class Rubric(models.Model):
     name = models.CharField(max_length=255, db_index=True, verbose_name="Название")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     image = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение')
+    objects = RubricManager() # Домашняя работа 31
 
     def __str__(self):
         return self.name
@@ -64,6 +83,8 @@ class Bb(models.Model):
     price = models.FloatField(null=True, blank=True, verbose_name="Цена")
     time_create = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name="Время создания")
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время редактирования')
+    objects = models.Manager() # Домашняя работа 31
+    by_price = BbManager() # Домашняя работа 31
 
     def __str__(self):
         return self.title
@@ -135,7 +156,7 @@ class Kit(models.Model):
         verbose_name = 'Посещение'
         verbose_name_plural = 'Посещения'
 
-# Домашнее задание 30
+
 class TimeStampedModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата редактирования')
@@ -143,7 +164,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
-# Домашнее задание 30
+
 class Authors(TimeStampedModel):
     first_name = models.CharField(max_length=100, verbose_name='Имя')
     last_name = models.CharField(max_length=100, verbose_name='Фамилия')
@@ -155,7 +176,7 @@ class Authors(TimeStampedModel):
         verbose_name = 'Автор'
         verbose_name_plural = 'Авторы'
 
-# Домашнее задание 30
+
 class Books(TimeStampedModel):
     author = models.OneToOneField(Authors, on_delete=models.CASCADE, verbose_name='Автор')
     name = models.CharField(max_length=100, verbose_name='Наименование')
@@ -169,7 +190,7 @@ class Books(TimeStampedModel):
         verbose_name = 'Книга'
         verbose_name_plural = 'Книги'
 
-# Домашнее задание 30
+
 class Reviews(TimeStampedModel):
     book = models.ForeignKey(Books, on_delete=models.CASCADE, related_name='reviews', verbose_name='Книга')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
