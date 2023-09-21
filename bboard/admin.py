@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from bboard.models import Bb, Rubric, Course, Student, Kit, Authors, Books, Reviews
+from bboard.models import Bb, Rubric, Course, Student, Kit, Authors, Books, Reviews, Article
 
 
 class BbAdmin(admin.ModelAdmin):
@@ -66,3 +66,4 @@ admin.site.register(Kit, KitAdmin)
 admin.site.register(Authors, AuthorsAdmin)
 admin.site.register(Books, BooksAdmin)
 admin.site.register(Reviews, ReviewsAdmin)
+admin.site.register(Article) # Домашняя работа 34

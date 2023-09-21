@@ -12,7 +12,7 @@ from django.views.generic import CreateView, ListView, TemplateView, DetailView,
     DayArchiveView
 from django.views.generic.edit import ProcessFormView, UpdateView
 
-from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm
+from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm, ArticleForm
 from bboard.models import Bb, Rubric, AdvUser
 from .utils import *
 
@@ -148,7 +148,7 @@ class Customer(View):
     def post(self, request):
         formset = self.CustomerFormset(request.POST)
         if formset.is_valid():
-            with transaction.atomic(): # Домашняя работа 31
+            with transaction.atomic():
                 try:
                     formset.save()
                     return redirect('index')
@@ -209,7 +209,7 @@ class BooksReview(ListView):
     def get_queryset(self):
         return Reviews.objects.all().select_related('book', 'user')
 
-# Домашняя работа 31
+
 class RubricsCount(ListView):
     template_name = 'bboard/rubrics_count.html'
     model = Rubric
@@ -221,3 +221,18 @@ class RubricsCount(ListView):
         context['count_bb'] = count_bb()
 
         return context
+
+# Домашняя работа
+class Forum(CreateView, ListView):
+    model = Article
+    template_name = 'bboard/forum.html'
+    form_class = ArticleForm
+    success_url = reverse_lazy('forum')
+    context_object_name = 'articles'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Статьи'
+        return context
+
+

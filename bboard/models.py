@@ -4,13 +4,14 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from precise_bbcode.fields import BBCodeTextField
 
-# Домашняя работа 31
+
 class RubricQuerySet(models.QuerySet):
     def order_by_bb_count(self):
         return self.annotate(cnt=models.Count('bb')).order_by('-cnt')
 
-# Домашняя работа 31
+
 class RubricManager(models.Manager):
     def get_queryset(self):
         return RubricQuerySet(self.model, using=self._db)
@@ -18,7 +19,7 @@ class RubricManager(models.Manager):
     def order_by_bb_count(self):
         return self.get_queryset().order_by_bb_count()
 
-# Домашняя работа 31
+
 class BbManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().order_by('price')
@@ -60,7 +61,7 @@ class Rubric(models.Model):
     name = models.CharField(max_length=255, db_index=True, verbose_name="Название")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
     image = models.ImageField(upload_to='images/%Y/%m/%d/', verbose_name='Изображение')
-    objects = RubricManager() # Домашняя работа 31
+    objects = RubricManager()
 
     def __str__(self):
         return self.name
@@ -83,8 +84,8 @@ class Bb(models.Model):
     price = models.FloatField(null=True, blank=True, verbose_name="Цена")
     time_create = models.DateTimeField(auto_now_add=True, db_index=True, verbose_name="Время создания")
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время редактирования')
-    objects = models.Manager() # Домашняя работа 31
-    by_price = BbManager() # Домашняя работа 31
+    objects = models.Manager()
+    by_price = BbManager()
 
     def __str__(self):
         return self.title
@@ -203,3 +204,16 @@ class Reviews(TimeStampedModel):
     class Meta:
         verbose_name = 'Рецензия'
         verbose_name_plural = 'Рецензия'
+
+# Домашняя работа 34
+class Article(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    content = BBCodeTextField(verbose_name='Содержание')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'Статья'
+        verbose_name_plural = 'Статьи'

@@ -2,7 +2,7 @@ from captcha.fields import CaptchaField
 from django import forms
 from django.core.exceptions import ValidationError
 
-from bboard.models import Bb, IceCream
+from bboard.models import Bb, IceCream, Article
 
 
 class BbForm(forms.ModelForm):
@@ -51,3 +51,9 @@ class FeedbackForm(forms.Form):
     email = forms.EmailField(label='Почта')
     content = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 5}), label='Описание')
     captcha = CaptchaField(label='Введите текс с картинки')
+
+# Домашняя работа 34
+class ArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['user', 'content']

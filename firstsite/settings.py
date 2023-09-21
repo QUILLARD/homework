@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'debug_toolbar',
     'captcha',
+    'precise_bbcode',
 
     'bboard.apps.BboardConfig',
     'tasksheet.apps.TasksheetConfig',
