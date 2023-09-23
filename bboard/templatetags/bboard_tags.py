@@ -1,4 +1,6 @@
 from django import template
+from django.utils.safestring import mark_safe
+
 from bboard.models import *
 
 register = template.Library()
@@ -17,3 +19,15 @@ def get_bbs():
 @register.filter
 def count_bbs(count_bb, pk):
     return count_bb.get(pk)
+
+
+@register.filter(name='uppercase')
+def uppercase_filter(value):
+    text = mark_safe("<strong>" + value.upper() + "</strong>")
+    return text
+
+
+@register.filter
+def currency_format(value, symbol="$"):
+    price = symbol + "{:,.2f}".format(value)
+    return price

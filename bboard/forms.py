@@ -52,7 +52,7 @@ class FeedbackForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 5}), label='Описание')
     captcha = CaptchaField(label='Введите текс с картинки')
 
-# Домашняя работа 34
+
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article

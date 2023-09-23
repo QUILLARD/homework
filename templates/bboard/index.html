@@ -21,14 +21,14 @@
                     <img class="content-ads-image" src="{{ bb.image.url }}">
                     <div class="content-ads-description">
                         <div>
-                            <h3>{{ bb.title }}</h3>
+                            <h3>{{ bb.title|uppercase }}</h3>
                             </br>
                             {% autoescape on %}
                                 <p>{{ bb.content|linebreaks|truncatewords:30 }}</p>
                             {% endautoescape %}
                         </div>
 
-                        <p>${{ bb.price }}</p>
+                        <p>{{ bb.price|currency_format }}</p>
                     </div>
                 </div>
 

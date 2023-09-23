@@ -205,7 +205,7 @@ class Reviews(TimeStampedModel):
         verbose_name = 'Рецензия'
         verbose_name_plural = 'Рецензия'
 
-# Домашняя работа 34
+
 class Article(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     content = BBCodeTextField(verbose_name='Содержание')

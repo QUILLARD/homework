@@ -222,7 +222,7 @@ class RubricsCount(ListView):
 
         return context
 
-# Домашняя работа
+
 class Forum(CreateView, ListView):
     model = Article
     template_name = 'bboard/forum.html'
