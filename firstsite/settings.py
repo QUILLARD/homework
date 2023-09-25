@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'captcha',
     'precise_bbcode',
+    'bootstrap4',
 
     'bboard.apps.BboardConfig',
     'tasksheet.apps.TasksheetConfig',
