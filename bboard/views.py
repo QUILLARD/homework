@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.db import transaction
+from django.db.models import Q
 from django.db.transaction import atomic
 from django.forms import inlineformset_factory, modelformset_factory, BaseModelFormSet
 from django.http import HttpResponseRedirect, JsonResponse
@@ -172,16 +173,28 @@ class FeedbackFormView(FormView):
         return redirect('index')
 
 
-class StudentsView(ListView):
+class StudentsView(View):
     template_name = 'bboard/courses_and_students.html'
-    model = Student
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Список учащихся'
-        context['students'] = Student.objects.all()
+    def get(self, request):
+        search_query = self.request.GET.get('search')
+        status = False
+        if search_query:
+            students = Student.objects.filter(
+                Q(first_name__icontains=search_query) | Q(last_name__icontains=search_query)
+            )
+            status = True
+        else:
+            students = Student.objects.all()
 
-        return context
+        search_count = len(students)
+        context = {
+            'students': students,
+            'search_count': search_count,
+            'search_query': search_query,
+            'status': status
+        }
+        return render(request, self.template_name, context)
 
 
 class StudentsVisits(ListView):
@@ -236,3 +249,9 @@ class Forum(CreateView, ListView):
         return context
 
 
+def search(request):
+    search_query = request.GET.get('search', False)
+    if search_query:
+        response = Bb.objects.filter(Q(title__icontains=search_query) | Q(content__icontains=search_query))
+        return render(request, 'bboard/index.html', context={'page_obj': response})
+    return reverse('index')

@@ -5,6 +5,11 @@
 
 	<div class="content-ads container">
         <h1 class="create-title">{{ title }}</h1>
+
+        {% if status %}
+        <h2>По запросу {{ search_query }} мы нашли {{ search_count }} студентов</h2>
+        {% endif %}
+
             {% for student in students %}
             <div class="content-ads-item">
                 <div class="content-ads-header">
