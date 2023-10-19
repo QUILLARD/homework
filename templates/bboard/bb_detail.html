@@ -18,9 +18,9 @@
                     </div>
                 </div>
                 <p>Пользователь: </p>
-                <p>Все объявления автора </p>
+                <p><a href="{% url 'users_bbs' bb.user %}">Все объявления автора {{ bb.user }}</a> </p>
             </div>
             <button class="create-btn">Написать сообщение</button>
-            <button class="create-btn">Добавить в корзину</button>
+            <button class="create-btn">Добавить в избранное</button>
         </div>
 {% endblock %}

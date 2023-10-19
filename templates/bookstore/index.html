@@ -1,0 +1,25 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+<div class="row mt-4 mb-4">
+    {% for book in books %}
+  <div class="col-sm-3 ">
+    <div class="card">
+      <img src="{% static 'bboard/img/book_image.jpg' %}">
+      <div class="card-body">
+        <h5 class="card-title">{{ book }}</h5>
+        <p class="card-text">С вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту.</p>
+        <div class="d-flex" style="height: 40px;">
+        <a href="#" class="btn text-white" style="background-color: #7BA7AB;">Посмотреть</a>
+        <a href="#" class="btn text-white ml-5" style="background-color: #7BA7AB;">В корзину</a>
+        </div>
+      </div>
+    </div>
+  </div>
+    {% endfor %}
+</div>
+  </div>
+{% endblock content %}

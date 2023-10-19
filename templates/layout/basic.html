@@ -124,10 +124,10 @@
           <li><a href="{% url 'index' %}" class="nav-link px-2 text-white" aria-current="page">Главная</a></li>
           <li><a href="{% url 'students' %}" class="nav-link px-2 text-white" aria-current="page">Студенты</a></li>
           <li><a href="{% url 'feedback' %}" class="nav-link px-2 text-white">Обратная связь</a></li>
-          <li><a href="{% url 'books' %}" class="nav-link px-2 text-white">Книги и Рецензии</a></li>
+          <li><a href="{% url 'bookstore:index' %}" class="nav-link px-2 text-white">Книги и Рецензии</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="{{ current_url }}">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get">
           <input type="search" name="search" class="form-control form-control-dark" placeholder="Поиск..." aria-label="Search">
         </form>
 
@@ -157,6 +157,7 @@
     </div>
   </header>
 <div>
+
 {% block content %}
 
 {% endblock %}
@@ -195,10 +196,6 @@
 </nav>
 {% endif %}
 </div>
-
-
-
-
 
 
 <footer class="text-light py-4" style="background-color: #4f9e9c;">

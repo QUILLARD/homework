@@ -11,7 +11,7 @@ class BbAdmin(admin.ModelAdmin):
     readonly_fields = ('time_create', 'time_update', 'get_html_img')
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('time_create', 'rubric',)
-    fields = ('title', 'slug', 'content', 'price', 'image', 'rubric', 'get_html_img', 'time_create', 'time_update')
+    fields = ('user', 'title', 'slug', 'content', 'price', 'image', 'rubric', 'get_html_img', 'time_create', 'time_update')
 
     def get_html_img(self, object):
         if object.image:
@@ -60,10 +60,10 @@ class ReviewsAdmin(admin.ModelAdmin):
 
 admin.site.register(Bb, BbAdmin)
 admin.site.register(Rubric, RubricAdmin)
-admin.site.register(Course, CourseAdmin)
-admin.site.register(Student, StudentAdmin)
-admin.site.register(Kit, KitAdmin)
-admin.site.register(Authors, AuthorsAdmin)
-admin.site.register(Books, BooksAdmin)
-admin.site.register(Reviews, ReviewsAdmin)
-admin.site.register(Article) # Домашняя работа 34
+# admin.site.register(Course, CourseAdmin)
+# admin.site.register(Student, StudentAdmin)
+# admin.site.register(Kit, KitAdmin)
+# admin.site.register(Authors, AuthorsAdmin)
+# admin.site.register(Books, BooksAdmin)
+# admin.site.register(Reviews, ReviewsAdmin)
+# admin.site.register(Article)

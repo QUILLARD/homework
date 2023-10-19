@@ -1,12 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.mail import EmailMultiAlternatives
 from django.db import transaction
 from django.db.models import Q
 from django.db.transaction import atomic
 from django.forms import inlineformset_factory, modelformset_factory, BaseModelFormSet
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView, ListView, TemplateView, DetailView, FormView, MonthArchiveView, \
@@ -42,7 +44,8 @@ class BbCreateView(LoginRequiredMixin, CreateView):
 
 class BbView(DataMixin, ListView):
     model = Bb
-    paginate_by = 6
+    paginate_by = 12
+    context_object_name = 'bbs'
     template_name = 'bboard/index.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -83,6 +86,14 @@ class BbDetailView(DetailView):
         context['title'] = context['bb']
 
         return context
+
+
+class UsersBbs(ListView):
+    template_name = 'bboard/index.html'
+    context_object_name = 'bbs'
+
+    def get_queryset(self):
+        return Bb.objects.filter(user__username=self.kwargs['user_name'])
 
 
 class IceCreamListView(ListView):
@@ -164,10 +175,23 @@ class FeedbackFormView(FormView):
     template_name = 'bboard/feedback.html'
     success_url = reverse_lazy('index')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Обратная связь'
-        return context
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(self.request.POST)
+        if form.is_valid():
+            data = {
+                'name': form.cleaned_data['name'],
+                'phone': form.cleaned_data['phone']
+            }
+            Contact.objects.create(name=data['name'], phone=data['phone'])
+
+            html = render_to_string('bboard/feedback_email.html', data)
+            msg = EmailMultiAlternatives(subject='Обратная связь: Доска объявлений', to=['313st@bk.ru'])
+            msg.attach_alternative(html, 'text/html')
+            msg.send()
+            return redirect('index')
+        else:
+            # В случае недопустимых данных, обработайте их или верните форму с ошибками
+            return self.form_invalid(form)
 
     def form_valid(self, form):
         return redirect('index')

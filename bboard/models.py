@@ -76,7 +76,7 @@ class Rubric(models.Model):
 
 
 class Bb(models.Model):
-    # user = models.ForeignKey(User, on_delete=models.PROTECT) # Пока не работает
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
     rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Рубрика')
     title = models.CharField(max_length=255, verbose_name="Заголовок объявления")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
@@ -250,3 +250,8 @@ class District(models.Model):
 
     def __str__(self):
         return self.district_name
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Имя')
+    phone = models.BigIntegerField(verbose_name='Номер телефона')

@@ -1,7 +1,8 @@
 from django.urls import path
 
 from bboard.views import BbCreateView, BbView, BbByRubricView, BbDetailView, IceCreamListView, CreateIceCream, \
-    user_check, Customer, FeedbackFormView, StudentsView, StudentsVisits, BooksReview, RubricsCount, Forum, search
+    user_check, Customer, FeedbackFormView, StudentsView, StudentsVisits, BooksReview, RubricsCount, Forum, search, \
+    UsersBbs
 
 urlpatterns = [
     path('', BbView.as_view(), name='index'),
@@ -19,4 +20,6 @@ urlpatterns = [
     path('rubrics_count/', RubricsCount.as_view(), name='rubrics_count'),
     path('forum/', Forum.as_view(), name='forum'),
     path('search/', search, name='search'),
+    path('bbs/user/<slug:user_name>/', UsersBbs.as_view(), name='users_bbs'),
+    # path('message/', ), # Сообщение другому пользователю
 ]

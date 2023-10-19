@@ -34,12 +34,12 @@ class Genre(TimeStampedModel):
 
 
 class Book(TimeStampedModel):
-    book_author = models.OneToOneField('Author', on_delete=models.PROTECT, verbose_name='Автор')
-    book_name = models.CharField(max_length=255, verbose_name='Наименование')
-    book_genre = models.ForeignKey('Genre', on_delete=models.PROTECT)
+    book_author = models.ForeignKey('Author', on_delete=models.PROTECT, verbose_name='Автор')
+    book_name = models.CharField(max_length=255, verbose_name='Название')
+    book_genre = models.ForeignKey('Genre', on_delete=models.PROTECT, verbose_name='Жанр')
     book_description = models.TextField(verbose_name='Описание')
     book_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
-    book_vendor_code = models.PositiveBigIntegerField()
+    book_vendor_code = models.PositiveBigIntegerField(verbose_name='Артикул')
 
     def __str__(self):
         return self.book_name

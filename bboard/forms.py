@@ -47,10 +47,9 @@ class UserCheckForm(forms.Form):
 
 
 class FeedbackForm(forms.Form):
-    name = forms.CharField(max_length=20, label='Имя')
-    email = forms.EmailField(label='Почта')
-    content = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 5}), label='Описание')
-    captcha = CaptchaField(label='Введите текс с картинки')
+    name = forms.CharField(label='Имя')
+    phone = forms.IntegerField(label='Телефон', widget=forms.TextInput(attrs={'pattern': '[0-9]*'}))
+    # captcha = CaptchaField(label='Введите текс с картинки')
 
 
 class ArticleForm(forms.ModelForm):
