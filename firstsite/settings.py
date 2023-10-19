@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bboard.apps.BboardConfig',
     'tasksheet.apps.TasksheetConfig',
     'authapp.apps.AuthappConfig',
+    'bookstore.apps.BookstoreConfig',
 ]
 
 INTERNAL_IPS = [

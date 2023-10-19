@@ -189,6 +189,7 @@ class StudentsView(View):
 
         search_count = len(students)
         context = {
+            'title': 'Список учащихся',
             'students': students,
             'search_count': search_count,
             'search_query': search_query,

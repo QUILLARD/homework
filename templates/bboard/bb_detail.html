@@ -7,10 +7,6 @@
 
 <div class="content-ads container">
             <div class="content-ads-item">
-                <div class="content-ads-header">
-                    <p>Рубрика: <a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric.name }}</a></p>
-                    <p>Дата публикации: {{ bb.time_create|date:"d.m.Y" }}</p>
-                </div>
                 <div class="content-ads-items">
                     <img class="content-ads-image" src="{{ bb.image.url }}">
                     <div class="content-ads-description">
@@ -21,7 +17,10 @@
                         <p>${{ bb.price }}</p>
                     </div>
                 </div>
-
+                <p>Пользователь: </p>
+                <p>Все объявления автора </p>
             </div>
+            <button class="create-btn">Написать сообщение</button>
+            <button class="create-btn">Добавить в корзину</button>
         </div>
 {% endblock %}

@@ -76,6 +76,7 @@ class Rubric(models.Model):
 
 
 class Bb(models.Model):
+    # user = models.ForeignKey(User, on_delete=models.PROTECT) # Пока не работает
     rubric = models.ForeignKey('Rubric', null=True, on_delete=models.PROTECT, verbose_name='Рубрика')
     title = models.CharField(max_length=255, verbose_name="Заголовок объявления")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
@@ -183,6 +184,7 @@ class Books(TimeStampedModel):
     name = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена')
+    # vendor_coe = models.PositiveBigIntegerField() # Пока не работает - Артикул для книги
 
     def __str__(self):
         return self.name
@@ -217,3 +219,34 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
+
+
+class Country(models.Model):
+    country_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.country_name
+
+
+class Region(models.Model):
+    region_name = models.CharField(max_length=100)
+    country = models.ForeignKey('Country', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.region_name
+
+
+class City(models.Model):
+    city_name = models.CharField(max_length=100)
+    region = models.ForeignKey('Region', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.city_name
+
+
+class District(models.Model):
+    district_name = models.CharField(max_length=100)
+    city = models.ForeignKey('City', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.district_name
