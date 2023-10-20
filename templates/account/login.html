@@ -1,0 +1,168 @@
+{% extends "layout/basic.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock head_title %}
+
+{% block content %}
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>-->
+
+<style>
+  @import url(//fonts.googleapis.com/css?family=Montserrat:300,400,500);
+
+  .bform {
+    font-family: "Montserrat", sans-serif;
+    color: #8d97ad;
+    font-weight: 300;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .bform h1 {
+    color: #3e4555;
+  }
+
+  .bform .subtitle {
+    color: #8d97ad;
+    line-height: 24px;
+  }
+
+  .bform a {
+    text-decoration: none;
+  }
+
+  .bform .btn-danger-gradiant {
+    background: #ff4d7e;
+    background: -webkit-linear-gradient(legacy-direction(to right), #ff4d7e 0%, #ff6a5b 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#ff4d7e), to(#ff6a5b));
+    background: -webkit-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+    background: -o-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+    background: linear-gradient(to right, #ff4d7e 0%, #ff6a5b 100%);
+  }
+
+  .bform .btn-danger-gradiant:hover {
+    background: #ff6a5b;
+    background: -webkit-linear-gradient(legacy-direction(to right), #ff6a5b 0%, #ff4d7e 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#ff6a5b), to(#ff4d7e));
+    background: -webkit-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+    background: -o-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+    background: linear-gradient(to right, #ff6a5b 0%, #ff4d7e 100%);
+  }
+
+  .bform .btn-md {
+    padding: 15px 45px;
+    font-size: 16px;
+  }
+
+  .bform .bg-facebook {
+    background-color: #3b5a9a;
+  }
+
+  .bform .bg-twitter {
+    background-color: #56adf2;
+  }
+
+  .bform .text-danger {
+    color: #ff4d7e !important;
+  }
+
+  .bform .right-image {
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+
+  @media (max-width: 1023px) {
+    .bform .contact-form {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .bform .contact-form {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .bform .right-image {
+      position: relative;
+      bottom: -95px;
+    }
+  }
+
+
+</style>
+
+{% get_providers as socialaccount_providers %}
+
+
+<!--<form class="login" method="POST" action="{% url 'account_login' %}">-->
+<!--    {% csrf_token %}-->
+<!--    {{ form.as_p }}-->
+<!--    {% if redirect_field_value %}-->
+<!--    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>-->
+<!--    {% endif %}-->
+<!--    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>-->
+<!--    <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>-->
+<!--</form>-->
+<div class="bform py-5">
+    <div class="container">
+        <div class=" align-justify-center pr-4 pl-0 contact-form">
+            <h1 class="mb-3 h1 text-center font-weight-light">Войти</h1>
+            <form class="login signup mt-3" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                <div class="row">
+                    {% for field in form %}
+
+                    <div class="form-group">
+                        {{ field.errors }}
+                        {% if field.field.widget.input_type != "checkbox" %}
+                        <input class="form-control" type="{{ field.field.widget.input_type }}" name="{{ field.name }}"
+                               placeholder="{{ field.label }}">
+                        {% else %}
+                        {{ field.label }}
+                        <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}"
+                               placeholder="{{ field.label }}">
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+                    {% endif %}
+                    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Забыли пароль?</a>
+
+                    <button type="submit" class="btn btn-md btn-block btn-danger-gradiant text-white border-0">
+                        Войти
+                    </button>
+                </div>
+            </form>
+            <div class="text-center" style="margin-top: 15px;">
+                {% if socialaccount_providers %}
+                <h2>Войти с помощью</h2>
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                {% include "socialaccount/snippets/login_extra.html" %}
+
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center mt-4">
+                    <h6 class="subtitle font-weight-normal">У вас нет аккаунта? <a href="{{ signup_url }}">
+                        Регистрация </a></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

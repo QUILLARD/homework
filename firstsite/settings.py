@@ -41,10 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
+
+    # Аутентификация + через соц сети
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
+    'allauth.socialaccount.providers.vk',
+    'allauth.socialaccount.providers.google',
 
     'debug_toolbar',
     'captcha',
@@ -68,7 +72,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+
+
+    "allauth.account.middleware.AccountMiddleware",
+
 ]
 
 ROOT_URLCONF = 'firstsite.urls'
@@ -163,3 +173,6 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'ekx313@yandex.kz'
 EMAIL_HOST_PASSWORD = 'khwyahsovwzdfygy'
 DEFAULT_FROM_EMAIL = 'ekx313@yandex.kz'
+
+# Перенаправление в случае аутентификации
+LOGIN_REDIRECT_URL = '/'

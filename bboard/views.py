@@ -5,8 +5,9 @@ from django.core.mail import EmailMultiAlternatives
 from django.db import transaction
 from django.db.models import Q
 from django.db.transaction import atomic
+from django.dispatch import Signal
 from django.forms import inlineformset_factory, modelformset_factory, BaseModelFormSet
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
@@ -33,7 +34,7 @@ class BbCreateView(LoginRequiredMixin, CreateView):
     template_name = 'bboard/create.html'
     form_class = BbForm
     success_url = reverse_lazy('index')
-    login_url = reverse_lazy('authapp:login')
+    login_url = reverse_lazy('account_login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,7 +45,7 @@ class BbCreateView(LoginRequiredMixin, CreateView):
 
 class BbView(DataMixin, ListView):
     model = Bb
-    paginate_by = 12
+    paginate_by = 3
     context_object_name = 'bbs'
     template_name = 'bboard/index.html'
 
@@ -57,11 +58,11 @@ class BbView(DataMixin, ListView):
 
 
 class BbByRubricView(ListView):
-    template_name = 'bboard/by_rubric.html'
+    template_name = 'bboard/index.html'
     model = Bb
     context_object_name = 'bbs'
     allow_empty = False
-    paginate_by = 3
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -274,9 +275,10 @@ class Forum(CreateView, ListView):
         return context
 
 
-def search(request):
-    search_query = request.GET.get('search', False)
-    if search_query:
-        response = Bb.objects.filter(Q(title__icontains=search_query) | Q(content__icontains=search_query))
-        return render(request, 'bboard/index.html', context={'page_obj': response})
-    return reverse('index')
+class Search(ListView):
+    template_name = 'bboard/index.html'
+    context_object_name = 'bbs'
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Bb.objects.filter(title__icontains=self.request.GET.get('search'))

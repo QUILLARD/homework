@@ -1,13 +1,13 @@
 from django.urls import path
 
 from bboard.views import BbCreateView, BbView, BbByRubricView, BbDetailView, IceCreamListView, CreateIceCream, \
-    user_check, Customer, FeedbackFormView, StudentsView, StudentsVisits, BooksReview, RubricsCount, Forum, search, \
-    UsersBbs
+    user_check, Customer, FeedbackFormView, StudentsView, StudentsVisits, BooksReview, RubricsCount, Forum, \
+    UsersBbs, Search
 
 urlpatterns = [
     path('', BbView.as_view(), name='index'),
     path('rubric/<slug:rubric_slug>/', BbByRubricView.as_view(), name='by_rubric'),
-    path('add/', BbCreateView.as_view(), name='add'),
+    path('add/', BbCreateView.as_view(), name='add_bb'),
     path('bbs/<slug:bb_slug>/', BbDetailView.as_view(), name='bb_detail'),
     path('create_ice_cream/', CreateIceCream.as_view(), name='create_ice_cream'),
     path('ice_cream/', IceCreamListView.as_view(), name='ice_cream'),
@@ -19,7 +19,6 @@ urlpatterns = [
     path('books/', BooksReview.as_view(), name='books'),
     path('rubrics_count/', RubricsCount.as_view(), name='rubrics_count'),
     path('forum/', Forum.as_view(), name='forum'),
-    path('search/', search, name='search'),
+    path('search/', Search.as_view(), name='search'),
     path('bbs/user/<slug:user_name>/', UsersBbs.as_view(), name='users_bbs'),
-    # path('message/', ), # Сообщение другому пользователю
 ]

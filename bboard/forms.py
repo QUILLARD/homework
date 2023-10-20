@@ -14,10 +14,9 @@ class BbForm(forms.ModelForm):
 
     class Meta:
         model = Bb
-        fields = ('title', 'slug', 'content', 'image', 'price', 'rubric')
+        fields = ('title', 'content', 'image', 'price', 'rubric')
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-input'}),
-            'slug': forms.TextInput(attrs={'class': 'form-input'}),
             'content': forms.Textarea(attrs={'cols': 35, 'rows': 5, 'style': 'margin-top: 6px;'}),
             'price': forms.TextInput(attrs={'class': 'form-input'}),
             'rubric': forms.Select(attrs={'class': 'form-input'}),

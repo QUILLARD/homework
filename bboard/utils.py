@@ -26,6 +26,6 @@ class DataMixin:
         context = kwargs
         bbs = Bb.objects.all()
         context['menu'] = menu
-        context['bbs'] = bbs.select_related('rubric')
+        context['bbss'] = bbs.select_related('rubric')
         # context['count_bb'] = count_bb()
         return context

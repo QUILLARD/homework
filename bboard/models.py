@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 from precise_bbcode.fields import BBCodeTextField
 
 
@@ -98,6 +99,11 @@ class Bb(models.Model):
 
     def get_absolute_url(self):
         return reverse('bb_detail', kwargs={'bb_slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
 
 class IceCream(models.Model):
