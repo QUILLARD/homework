@@ -1,8 +1,11 @@
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from rest_framework import generics
 
 from tasksheet.forms import TaskForm
 from tasksheet.models import Task
+from tasksheet.serializers import TaskSerializer, UserSerializer
 
 
 class CreateTask(CreateView):
@@ -54,3 +57,13 @@ class DeleteTask(DeleteView):
         context['title'] = 'Удаление'
 
         return context
+
+
+class TaskAPIView(generics.ListAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+
+class UserAPIView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

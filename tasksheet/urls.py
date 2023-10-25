@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 
-from tasksheet.views import CreateTask, ListTasks, UpdateTask, DeleteTask
+from tasksheet.views import CreateTask, ListTasks, UpdateTask, DeleteTask, TaskAPIView, UserAPIView
 
 app_name = 'tasksheet'
 
@@ -9,6 +9,8 @@ urlpatterns = [
     path('listtasks/', ListTasks.as_view(), name='list_tasks'),
     path('updatetask/<int:pk>/', UpdateTask.as_view(), name='update_task'),
     path('deletetask/<int:pk>/', DeleteTask.as_view(), name='delete_task'),
+    path('api/v1/task/', TaskAPIView.as_view(), name='api_task'),
+    path('api/v1/user/', UserAPIView.as_view(), name='api_user'),
 ]
 
 # urlpatterns = [

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'captcha',
     'precise_bbcode',
     'bootstrap4',
+    'rest_framework',
 
     'bboard.apps.BboardConfig',
     'authapp.apps.AuthappConfig',
