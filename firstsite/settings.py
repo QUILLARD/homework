@@ -56,9 +56,8 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     'bboard.apps.BboardConfig',
-    'tasksheet.apps.TasksheetConfig',
     'authapp.apps.AuthappConfig',
-    'bookstore.apps.BookstoreConfig',
+    'tasksheet.apps.TasksheetConfig',
 ]
 
 INTERNAL_IPS = [

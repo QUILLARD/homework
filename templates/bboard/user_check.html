@@ -10,13 +10,14 @@
     <form method="post">
         {% csrf_token %}
         {% for f in form %}
-            <p class="authapp-label"><label class="form-label-authapp" for="f.id_for_label">{{ f.label }}:</label> {{ f }} </p>
-            <div class="form-error">
-                {{ f.errors }}
-            </div>
+        <p class="authapp-label"><label class="form-label-authapp" for="f.id_for_label">{{ f.label }}:</label> {{ f }}
+        </p>
+        <div class="form-error">
+            {{ f.errors }}
+        </div>
         {% endfor %}
 
-    <button class="create-btn" type="submit">Готово</button>
+        <button class="create-btn" type="submit">Готово</button>
     </form>
 
 </div>

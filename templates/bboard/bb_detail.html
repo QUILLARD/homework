@@ -6,21 +6,20 @@
 
 
 <div class="content-ads container">
-            <div class="content-ads-item">
-                <div class="content-ads-items">
-                    <img class="content-ads-image" src="{{ bb.image.url }}">
-                    <div class="content-ads-description">
-                        <h3>{{ bb.title }}</h3>
-                        </br>
-                        <p>{{ bb.content|linebreaks }}</p>
-                        </br>
-                        <p>${{ bb.price }}</p>
-                    </div>
-                </div>
-                <p>Пользователь: </p>
-                <p><a href="{% url 'users_bbs' bb.user %}">Все объявления автора {{ bb.user }}</a> </p>
+    <div class="content-ads-item">
+                <div class="h1"><h1>{{ bb.title }}</h1></div>
+        <div class="content-ads-items">
+            <img class="content-ads-image" src="{{ bb.image.url }}">
+            <div class="content-ads-description">
+                </br>
+                <p>{{ bb.content|linebreaks }}</p>
+                </br>
+                <p>${{ bb.price }}</p>
             </div>
-            <button class="create-btn">Написать сообщение</button>
-            <button class="create-btn">Добавить в избранное</button>
         </div>
+        <p><a href="{% url 'users_bbs' bb.user %}">Все объявления автора</a></p>
+        <p><a href="{% url 'users_bbs' bb.user %}">Написать сообщение</a></p>
+        <p><a href="{% url 'users_bbs' bb.user %}">Добавить в избранное</a></p>
+    </div>
+</div>
 {% endblock %}

@@ -1,34 +1,34 @@
 {% extends "layout/basic.html" %}
 
 {% block title %}
-    {{ title }}
+{{ title }}
 {% endblock %}
 
 {% block content %}
 
 {% include 'includes/inc_rubric_menu.html' %}
 
-        <div class="content-ads container">
-            {% for bb in bbs %}
-            <div class="content-ads-item">
-                <div class="content-ads-header">
-                    <p>Рубрика: {{ bb.rubric.name }}</p>
-                    <p>Дата публикации: {{ bb.time_create|date:"d.m.Y" }}</p>
-                </div>
-                <div class="content-ads-items">
-                    <img class="content-ads-image" src="{{ bb.image.url }}">
-                    <div class="content-ads-description">
-                        <h3>{{ bb.title }}</h3>
-                         </br>
-                        <p>{{ bb.content|linebreaks|truncatewords:30 }}</p>
-                        <p>${{ bb.price }}</p>
-                    </div>
-                </div>
-
-                <p class="content-ads-open"><a href="{{ bb.get_absolute_url }}">Открыть</a></p>
-
-            </div>
-            {% endfor %}
+<div class="content-ads container">
+    {% for bb in bbs %}
+    <div class="content-ads-item">
+        <div class="content-ads-header">
+            <p>Рубрика: {{ bb.rubric.name }}</p>
+            <p>Дата публикации: {{ bb.time_create|date:"d.m.Y" }}</p>
         </div>
+        <div class="content-ads-items">
+            <img class="content-ads-image" src="{{ bb.image.url }}">
+            <div class="content-ads-description">
+                <h3>{{ bb.title }}</h3>
+                </br>
+                <p>{{ bb.content|linebreaks|truncatewords:30 }}</p>
+                <p>${{ bb.price }}</p>
+            </div>
+        </div>
+
+        <p class="content-ads-open"><a href="{{ bb.get_absolute_url }}">Открыть</a></p>
+
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

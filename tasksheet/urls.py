@@ -2,6 +2,8 @@ from django.urls import path, re_path
 
 from tasksheet.views import CreateTask, ListTasks, UpdateTask, DeleteTask
 
+app_name = 'tasksheet'
+
 urlpatterns = [
     path('add/', CreateTask.as_view(), name='task_add'),
     path('listtasks/', ListTasks.as_view(), name='list_tasks'),

@@ -6,9 +6,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('bboard.urls')),
-    path('bookstore/', include('bookstore.urls')),
-    path('tasksheet/', include('tasksheet.urls')),
     path('auth/', include('authapp.urls', namespace='authapp')),
+    path('tasksheet/', include('tasksheet.urls', namespace='tasksheet')),
     path('accounts/', include('allauth.urls')),
     path('captcha/', include('captcha.urls')),
 ]
