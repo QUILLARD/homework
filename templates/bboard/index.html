@@ -15,7 +15,7 @@
                 <img src="{{ bb.image.url }}" class="card-img-top" alt="{{ bb }}"
                      style="object-fit: cover; height: 200px;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ bb }}</h5>
+                    <h1 class="card-title h4">{{ bb }}</h1>
                     <p class="card-text">
                         {{ bb.price|floatformat:0 }} $
                     </p>
@@ -32,40 +32,5 @@
         {% endfor %}
     </div>
 </div>
-
-<!--<div class="container">-->
-<!--    <div class="content-row">-->
-<!--        <div class="content-ads">-->
-<!--            {% for bb in page_obj %}-->
-<!--            <div class="content-ads-item">-->
-<!--                <div class="content-ads-header">-->
-<!--                    <p>Рубрика: <a href="{{ bb.rubric.get_absolute_url }}">{{ bb.rubric}}</a></p>-->
-<!--                    <p>Дата публикации: {{ bb.time_create|date:"d.m.Y" }}</p>-->
-<!--                    <p>Добавить в избранное</p>-->
-<!--                </div>-->
-<!--                <div class="content-ads-items">-->
-<!--                    <img class="content-ads-image" src="{{ bb.image.url }}">-->
-<!--                    <div class="content-ads-description">-->
-<!--                        <div>-->
-<!--                            <h3>{{ bb.title|uppercase }}</h3>-->
-<!--                            </br>-->
-<!--                            {% autoescape on %}-->
-<!--                                <p>{{ bb.content|linebreaks|truncatewords:30 }}</p>-->
-<!--                            {% endautoescape %}-->
-<!--                        </div>-->
-
-<!--                        <p>{{ bb.price|currency_format }}</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <p class="content-ads-open"><a href="{{ bb.get_absolute_url }}">Открыть</a></p>-->
-
-<!--            </div>-->
-<!--            {% endfor %}-->
-<!--        </div>-->
-
-
-<!--    </div>-->
-<!--</div>-->
 
 {% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Task(models.Model):
@@ -22,8 +23,10 @@ class Task(models.Model):
         verbose_name='Статус'
     )
 
+    def get_absolute_url(self):
+        return reverse('tasksheet:update_task', kwargs={'pk': self.pk})
+
     class Meta:
         verbose_name = 'Лист задач'
         verbose_name_plural = 'Лист задач'
         ordering = ['start']
-

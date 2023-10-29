@@ -4,36 +4,36 @@
 
 {% block content %}
 
+
 <div class="container">
-
     {% if tasks %}
-        <h1 class="task-title">Лист Задач</h1>
+    <h1 class="task-title">Лист Задач</h1>
     {% else %}
-        <h1 class="task-title">Активных задач нет</h1>
-        <div class="text-center h5"><a href="{% url 'tasksheet:task_add' %}">Создать?</a></div>
+    <h1 class="task-title">Активных задач нет</h1>
+    <div class="text-center h5"><a href="{% url 'tasksheet:task_add' %}">Создать?</a></div>
     {% endif %}
-
-    <div class="list-container">
-
-    {% for task in tasks %}
-    <div class="list-items">
-        <img class="list-image" src="{% static 'bboard/img/task.png' %}" alt="logo">
-
-        <div class="task-content">
-          <p class="task-name">Задача: {{ task.name }}</p>
-          <p class="task-notes">{{ task.notes }}</p>
+    <div class="row mt-4 mb-4">
+        {% for task in tasks %}
+        <div class="col-sm-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h1 class="card-title h4">{{ task.name }}</h1>
+                    <p class="card-text">
+                        {{ task.notes }}
+                    </p>
+                    <p class="card-text">
+                        {{ task.start }} </br>
+                        Статус: {{ task.is_completed }}
+                    </p>
+                    <div class="d-flex align-items-center" style="height: 40px;">
+                        <a href="{{ task.get_absolute_url }}" class="btn text-white" style="background-color: #7BA7AB;">Изменить</a>
+                        <a href="{% url 'tasksheet:delete_task' task.pk %}" class="btn text-white ml-2" style="background-color: #7BA7AB;">Удалить</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <small class="">
-            Статус: {{ task.is_completed }}
-        </small>
+        {% endfor %}
     </div>
-    <div class="task-btns">
-        <a href="{% url 'tasksheet:delete_task' task.pk %}"><button class="task-btn">Удалить</button></a>
-        <a href="{% url 'tasksheet:update_task' task.pk %}"><button class="task-btn">Изменить</button></a>
-    </div>
-    {% endfor %}
-    </div>
-
 </div>
 
 

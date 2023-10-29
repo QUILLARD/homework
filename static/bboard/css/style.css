@@ -524,3 +524,13 @@ img.content-ads-image {
   .card-img-top {
     object-fit: cover;
 
+
+.alert-success {
+    border: 1px green solid;
+}
+
+.alert-danger {
+    border: 1px red solid;
+}
+
+

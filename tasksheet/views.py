@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from rest_framework import generics
@@ -37,13 +39,25 @@ class UpdateTask(UpdateView):
     form_class = TaskForm
     template_name = 'tasksheet/update_task.html'
     # fields = '__all__'
-    success_url = reverse_lazy('tasksheet:list_tasks')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Редактирование'
 
         return context
+
+    def get_success_url(self):
+        pk = self.kwargs.get('pk')
+        return reverse_lazy('tasksheet:update_task', kwargs={'pk': pk})
+
+    def form_valid(self, form):
+        try:
+            form.save()
+            messages.success(self.request, 'Задача изменена')
+        except Exception:
+            messages.error(self.request, 'Ошибка редактирования')
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class DeleteTask(DeleteView):

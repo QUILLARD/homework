@@ -32,33 +32,6 @@ def get_positive_numbers(num):
         raise ValidationError('Число %(value)s меньше нуля', code='odd', params={'value': num})
 
 
-class AdvUser(models.Model):
-    is_activated = models.BooleanField(
-        default=True,
-    )
-
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE
-    )
-
-
-class Spare(models.Model):
-    name = models.CharField(
-        max_length=30,
-    )
-
-
-class Machine(models.Model):
-    name = models.CharField(
-        max_length=30,
-    )
-
-    spares = models.ManyToManyField(
-        Spare,
-    )
-
-
 class Rubric(models.Model):
     name = models.CharField(max_length=255, db_index=True, verbose_name="Название")
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name='URL')
