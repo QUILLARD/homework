@@ -8,20 +8,14 @@
 
 {% block content %}
 
-
 <div class="container">
-
     <h1 class="create-title">{{ title }}</h1>
-
     <div class="create-form">
         <form action="" method="post">
             {% csrf_token %}
-
-            <p>Название:  {{ form.name }}</p>
+            <p>Название: {{ form.name }}</p>
             <p>Описание: {{ form.notes }}</p>
-
             <button class="create-btn" type="submit" value="Добавить">Добавить</button>
-
         </form>
     </div>
 </div>

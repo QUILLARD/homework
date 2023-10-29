@@ -9,13 +9,13 @@
     <div class="create-form">
         <form class="btn-align" action="" method="post">
             {% if messages %}
-        {% for message in messages %}
+            {% for message in messages %}
             <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        {% endfor %}
-    {% endif %}
+            {% endfor %}
+            {% endif %}
             {% csrf_token %}
             {% for f in form %}
             <p class="authapp-label"><label class="form-label-authapp" for="f.id_for_label">{{ f.label }}:</label> {{ f }} </p>
@@ -24,7 +24,9 @@
             </div>
             {% endfor %}
             <div class="btn-align">
-                <button class="btn text-white" style="background-color: #7BA7AB;" type="submit" value="Добавить">Изменить</button>
+                <button class="btn text-white" style="background-color: #7BA7AB;" type="submit" value="Добавить">
+                    Изменить
+                </button>
             </div>
         </form>
     </div>
