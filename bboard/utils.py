@@ -14,7 +14,7 @@ def count_bb():
 class DataMixin:
     def get_user_context(self, **kwargs):
         context = kwargs
-        bbs = Bb.objects.all()
-        context['bbss'] = bbs.select_related('rubric')
+        # bbs = Bb.objects.all()
+        # context['bbss'] = bbs.select_related('rubric')
         # context['count_bb'] = count_bb()
         return context

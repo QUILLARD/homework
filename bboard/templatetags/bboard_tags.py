@@ -1,4 +1,5 @@
 from django import template
+from django.core.cache import cache
 from django.utils.safestring import mark_safe
 
 from bboard.models import *
@@ -8,7 +9,13 @@ register = template.Library()
 
 @register.simple_tag(name='all_rubrics')
 def get_rubrics():
-    return Rubric.objects.all()
+    cached_data = cache.get('rubrics')
+    if cached_data is not None:
+        return cached_data
+    else:
+        rubrics = Rubric.objects.all()
+        cache.set('rubrics', rubrics, 900)
+        return rubrics
 
 
 @register.simple_tag()

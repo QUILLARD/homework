@@ -37,7 +37,7 @@ class BbCreateView(LoginRequiredMixin, CreateView):
 
 class BbView(DataMixin, ListView):
     model = Bb
-    paginate_by = 3
+    paginate_by = 6
     context_object_name = 'bbs'
     template_name = 'bboard/index.html'
 
@@ -86,7 +86,7 @@ class UsersBbs(ListView):
     def get_queryset(self):
         return Bb.objects.filter(user__username=self.kwargs['user_name'])
 
-# Домашнее задание 43
+
 class FeedbackFormView(FormView):
     form_class = FeedbackForm
     template_name = 'bboard/feedback.html'
