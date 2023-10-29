@@ -62,6 +62,7 @@
 
                                 <a class="nav-link" href="{% url 'admin:index' %}">Админ-панель</a>
                                 {% endif %}
+                                <a class="nav-link" href="{% url 'personal_profile' user.pk %}">Личный кабинет</a>
                                 <a class="nav-link" href="{% url 'account_change_password' %}">Сменить пароль</a>
                                 <a class="nav-link" href="{% url 'account_logout' %}">Выйти</a>
                             </div>

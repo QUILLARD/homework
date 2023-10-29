@@ -8,6 +8,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, DetailView, FormView
+from rest_framework.generics import get_object_or_404
+
 from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm, ArticleForm
 from .utils import *
 
@@ -119,3 +121,16 @@ class Search(ListView):
 
     def get_queryset(self):
         return Bb.objects.filter(title__icontains=self.request.GET.get('search'))
+
+
+class PersonalProfile(DetailView):
+    template_name = 'userprofile/main_profile.html'
+    context_object_name = 'user'
+    model = User
+
+    def get_object(self, queryset=None):
+        # Используйте self.kwargs['user_pk'] для получения значения pk из URL
+        user_pk = self.kwargs['user_pk']
+        # Затем используйте его для получения объекта User из базы данных
+        user = User.objects.get(pk=user_pk)
+        return user

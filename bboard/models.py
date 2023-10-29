@@ -234,3 +234,8 @@ class District(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя')
     phone = models.BigIntegerField(verbose_name='Номер телефона')
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.PROTECT)
+    photo = models.ImageField(upload_to='userprofile/%Y/%m/%d/', verbose_name='Фотография')
