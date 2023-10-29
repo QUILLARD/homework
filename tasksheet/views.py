@@ -33,7 +33,7 @@ class ListTasks(ListView):
 
         return context
 
-# Домашняя работа 41
+
 class UpdateTask(UpdateView):
     model = Task
     form_class = TaskForm

@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     'bboard.apps.BboardConfig',
-    'authapp.apps.AuthappConfig',
+    # 'authapp.apps.AuthappConfig',
     'tasksheet.apps.TasksheetConfig',
 ]
 

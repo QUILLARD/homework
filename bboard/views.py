@@ -129,8 +129,6 @@ class PersonalProfile(DetailView):
     model = User
 
     def get_object(self, queryset=None):
-        # Используйте self.kwargs['user_pk'] для получения значения pk из URL
         user_pk = self.kwargs['user_pk']
-        # Затем используйте его для получения объекта User из базы данных
         user = User.objects.get(pk=user_pk)
         return user
