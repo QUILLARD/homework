@@ -86,7 +86,7 @@ class UsersBbs(ListView):
     def get_queryset(self):
         return Bb.objects.filter(user__username=self.kwargs['user_name'])
 
-
+# Домашнее задание 43
 class FeedbackFormView(FormView):
     form_class = FeedbackForm
     template_name = 'bboard/feedback.html'
@@ -107,7 +107,6 @@ class FeedbackFormView(FormView):
             msg.send()
             return redirect('index')
         else:
-            # В случае недопустимых данных, обработайте их или верните форму с ошибками
             return self.form_invalid(form)
 
     def form_valid(self, form):
@@ -132,3 +131,7 @@ class PersonalProfile(DetailView):
         user_pk = self.kwargs['user_pk']
         user = User.objects.get(pk=user_pk)
         return user
+
+
+def page_not_found(request, exception):
+    return render(request, 'exceptions/page_not_found.html')

@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Аутентификация + через соц сети
+    # Аутентификация + через соц сети, подключаемая библиотека
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -159,13 +159,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
-# Настройки для восстановления путем отправки на почту
+# Настройки YANDEX SMTP сервера для отправки сообщений на почту
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
+# Данные от почты Yandex с настроенным SMTP сервером
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
@@ -182,3 +183,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
+ADMINS = [
+    ('admin', '313st@bk.ru'),
+]
+
+MANAGERS = [
+    ('admin', '313st@bk.ru'),
+]
