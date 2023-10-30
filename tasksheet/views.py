@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from rest_framework import generics
@@ -38,6 +38,7 @@ class UpdateTask(UpdateView):
     model = Task
     form_class = TaskForm
     template_name = 'tasksheet/update_task.html'
+
     # fields = '__all__'
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -78,6 +79,10 @@ class TaskAPIView(generics.ListAPIView):
     serializer_class = TaskSerializer
 
 
-class UserAPIView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+def user_api_view(request):
+    if request.method == 'GET':
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+
+        return JsonResponse(serializer.data, safe=False)
+

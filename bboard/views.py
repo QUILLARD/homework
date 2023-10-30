@@ -48,14 +48,14 @@ class BbView(DataMixin, ListView):
 
         return context
 
-# Домашнее задание 47
+
 class BbByRubricView(DataSlugMixin, View):
     template_name = 'bboard/index.html'
     model = Bb
     context_object_name = 'bbs'
     allow_empty = False
 
-# Домашнее задание 47
+
 class BbDetailView(DataSlugMixin, View):
     model = Bb
     template_name = 'bboard/bb_detail.html'

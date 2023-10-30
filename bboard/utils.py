@@ -22,7 +22,7 @@ class DataMixin:
         # context['count_bb'] = count_bb()
         return context
 
-# Домашнее задание 47
+
 class DataSlugMixin(LoginRequiredMixin):
     model = None
     template_name = None
