@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from rest_framework import generics
+from rest_framework import status
 
 from tasksheet.forms import TaskForm
 from tasksheet.models import Task
@@ -74,9 +75,21 @@ class DeleteTask(DeleteView):
         return context
 
 
-class TaskAPIView(generics.ListAPIView):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
+def task_api_view(request):
+    if request.method == 'GET':
+        tasks = Task.objects.all()
+        serializer = TaskSerializer(tasks, many=True)
+
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 def user_api_view(request):
@@ -86,3 +99,16 @@ def user_api_view(request):
 
         return JsonResponse(serializer.data, safe=False)
 
+    elif request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+
+        else:
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+def login_api(request):
+    pass

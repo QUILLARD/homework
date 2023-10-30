@@ -10,8 +10,9 @@ urlpatterns = [
     path('updatetask/<int:pk>/', views.UpdateTask.as_view(), name='update_task'),
     path('deletetask/<int:pk>/', views.DeleteTask.as_view(), name='delete_task'),
     # API
-    path('api/v1/task/', views.TaskAPIView.as_view(), name='api_task'),
+    path('api/v1/task/', views.task_api_view, name='api_task'),
     path('api/v1/users/', views.user_api_view, name='api_users'),
+    path('api/v1/login/', views.login_api, name='login_api'),
 ]
 
 # urlpatterns = [
