@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from rest_framework import generics
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 from tasksheet.forms import TaskForm
 from tasksheet.models import Task
@@ -75,40 +76,13 @@ class DeleteTask(DeleteView):
         return context
 
 
-def task_api_view(request):
-    if request.method == 'GET':
-        tasks = Task.objects.all()
-        serializer = TaskSerializer(tasks, many=True)
-
-        return JsonResponse(serializer.data, safe=False)
-
-    elif request.method == 'POST':
-        serializer = TaskSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class TaskAPIListCreateView(generics.ListCreateAPIView):
+    queryset = Task.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = TaskSerializer
 
 
-def user_api_view(request):
-    if request.method == 'GET':
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-
-        return JsonResponse(serializer.data, safe=False)
-
-    elif request.method == 'POST':
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-
-        else:
-            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-def login_api(request):
-    pass
+class UserAPIListCreateView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UserSerializer
