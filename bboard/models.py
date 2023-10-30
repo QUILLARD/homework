@@ -47,7 +47,7 @@ class Rubric(models.Model):
         ordering = ['id']
 
     def get_absolute_url(self):
-        return reverse('by_rubric', kwargs={'rubric_slug': self.slug})
+        return reverse('by_rubric', kwargs={'slug': self.slug})
 
 
 class Bb(models.Model):
@@ -72,7 +72,7 @@ class Bb(models.Model):
         ordering = ['-time_create', 'title']
 
     def get_absolute_url(self):
-        return reverse('bb_detail', kwargs={'bb_slug': self.slug})
+        return reverse('bb_detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

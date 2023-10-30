@@ -22,7 +22,4 @@ class BbAdmin(admin.ModelAdmin):
 
 admin.site.register(Bb, BbAdmin)
 admin.site.register(Rubric)
-admin.site.register(Country)
-admin.site.register(Region)
-admin.site.register(City)
-admin.site.register(District)
+

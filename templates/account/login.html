@@ -102,20 +102,11 @@
 
 
 
+
 </style>
 
 {% get_providers as socialaccount_providers %}
 
-
-<!--<form class="login" method="POST" action="{% url 'account_login' %}">-->
-<!--    {% csrf_token %}-->
-<!--    {{ form.as_p }}-->
-<!--    {% if redirect_field_value %}-->
-<!--    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>-->
-<!--    {% endif %}-->
-<!--    <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>-->
-<!--    <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>-->
-<!--</form>-->
 <div class="bform py-5">
     <div class="container">
         <div class=" align-justify-center pr-4 pl-0 contact-form">

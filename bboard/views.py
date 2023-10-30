@@ -48,35 +48,18 @@ class BbView(DataMixin, ListView):
 
         return context
 
-
-class BbByRubricView(ListView):
+# Домашнее задание 47
+class BbByRubricView(DataSlugMixin, View):
     template_name = 'bboard/index.html'
     model = Bb
     context_object_name = 'bbs'
     allow_empty = False
-    paginate_by = 8
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = Rubric.objects.get(slug=self.kwargs['rubric_slug'])
-
-        return context
-
-    def get_queryset(self):
-        return Bb.objects.filter(rubric__slug=self.kwargs['rubric_slug']).select_related('rubric')
-
-
-class BbDetailView(DetailView):
+# Домашнее задание 47
+class BbDetailView(DataSlugMixin, View):
     model = Bb
-    context_object_name = 'bb'
     template_name = 'bboard/bb_detail.html'
-    slug_url_kwarg = 'bb_slug'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = context['bb']
-
-        return context
+    allow_empty = True
 
 
 class UsersBbs(ListView):

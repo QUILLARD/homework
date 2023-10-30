@@ -7,19 +7,23 @@
 
 <div class="content-ads container">
     <div class="content-ads-item">
-                <div class="h1"><h1>{{ bb.title }}</h1></div>
-        <div class="content-ads-items">
-            <img class="content-ads-image" src="{{ bb.image.url }}">
-            <div class="content-ads-description">
-                </br>
-                <p>{{ bb.content|linebreaks }}</p>
-                </br>
-                <p>${{ bb.price }}</p>
+        <div> {% for obj in bbs %}
+            <div class="h1"><h1>{{ obj.title }}</h1></div>
+            <div class="content-ads-items">
+                <img class="content-ads-image" src="{{ obj.image.url }}">
+                <div class="content-ads-description">
+                    </br>
+                    <p>{{ obj.content|linebreaks }}</p>
+                    </br>
+                    <p>${{ obj.price }}</p>
+                </div>
             </div>
+
+            <p><a href="{% url 'users_bbs' obj.user %}">Все объявления автора</a></p>
+            <p><a href="#">Написать сообщение</a></p>
+            <p><a href="#">Добавить в избранное</a></p>
+            {% endfor %}
         </div>
-        <p><a href="{% url 'users_bbs' bb.user %}">Все объявления автора</a></p>
-        <p><a href="{% url 'users_bbs' bb.user %}">Написать сообщение</a></p>
-        <p><a href="{% url 'users_bbs' bb.user %}">Добавить в избранное</a></p>
     </div>
 </div>
 {% endblock %}
