@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt',
 
     'bboard.apps.BboardConfig',
     # 'authapp.apps.AuthappConfig',
@@ -206,4 +207,10 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
