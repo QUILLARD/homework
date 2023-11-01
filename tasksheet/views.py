@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from rest_framework import generics
+from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 
@@ -82,7 +83,7 @@ class TaskAPIListCreateView(generics.ListCreateAPIView):
     serializer_class = TaskSerializer
 
 
-class UserAPIListCreateView(generics.ListCreateAPIView):
+class UserAPIListView(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer

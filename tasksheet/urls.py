@@ -1,8 +1,10 @@
-from django.urls import path, re_path
-
+from django.urls import path, re_path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
 app_name = 'tasksheet'
+router = DefaultRouter()
+router.register('users', views.UserAPIListView)
 
 urlpatterns = [
     path('add/', views.CreateTask.as_view(), name='task_add'),
@@ -11,7 +13,7 @@ urlpatterns = [
     path('deletetask/<int:pk>/', views.DeleteTask.as_view(), name='delete_task'),
     # API
     path('api/v1/task/', views.TaskAPIListCreateView.as_view(), name='api_task'),
-    path('api/v1/users/', views.UserAPIListCreateView.as_view(), name='api_users'),
+    path('api/v1/', include(router.urls), name='api_users'),
 ]
 
 # urlpatterns = [
