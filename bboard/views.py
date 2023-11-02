@@ -14,6 +14,7 @@ import logging
 from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm, ArticleForm
 from .utils import *
 
+# Домашняя работа 55
 logger = logging.getLogger('bboard')
 
 
@@ -106,6 +107,7 @@ class Search(ListView):
     paginate_by = 3
 
     def get_queryset(self):
+        # Домашняя работа 55
         logger.warning(f'Пользователь {self.request.user} выполнил поиск - {self.request.GET.get("search")}')
         return Bb.objects.filter(title__icontains=self.request.GET.get('search'))
 
