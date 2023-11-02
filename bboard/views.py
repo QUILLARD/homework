@@ -9,9 +9,12 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import CreateView, ListView, DetailView, FormView
 from rest_framework.generics import get_object_or_404
+import logging
 
 from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm, ArticleForm
 from .utils import *
+
+logger = logging.getLogger('bboard')
 
 
 def count_bb():
@@ -32,6 +35,7 @@ class BbCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Добавление объявления'
+
         return context
 
 
@@ -102,6 +106,7 @@ class Search(ListView):
     paginate_by = 3
 
     def get_queryset(self):
+        logger.warning(f'Пользователь {self.request.user} выполнил поиск - {self.request.GET.get("search")}')
         return Bb.objects.filter(title__icontains=self.request.GET.get('search'))
 
 
