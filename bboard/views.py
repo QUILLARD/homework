@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMultiAlternatives
 from django.db import transaction
@@ -7,14 +9,14 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, ListView, DetailView, FormView
+from django.views.generic import CreateView, ListView, DetailView, FormView, DeleteView
 from rest_framework.generics import get_object_or_404
 import logging
 
-from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm, ArticleForm
+from bboard.forms import BbForm, IceCreamForm, UserCheckForm, FeedbackForm, ArticleForm, MessageForm
 from .utils import *
 
-# Домашняя работа 55
+
 logger = logging.getLogger('bboard')
 
 
@@ -38,6 +40,10 @@ class BbCreateView(LoginRequiredMixin, CreateView):
         context['title'] = 'Добавление объявления'
 
         return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class BbView(DataMixin, ListView):
@@ -67,8 +73,45 @@ class BbDetailView(DataSlugMixin, View):
     allow_empty = True
 
 
+class BbDelete(LoginRequiredMixin, DeleteView):
+    template_name = 'bboard/bb_delete.html'
+    model = Bb
+
+    def get_success_url(self):
+        user_name = self.request.user.username
+        return reverse_lazy('users_bbs', kwargs={'user_name': user_name})
+
+
+@login_required
+def send_message_for_bb(request, receiver_id, bb_id):
+    receiver = get_object_or_404(User, pk=receiver_id)
+    bb = get_object_or_404(Bb, pk=bb_id)
+    return_url = request.GET.get('next', '/')
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['text']
+            message = Message(sender=request.user, receiver=receiver, bb=bb, text=text)
+            message.save()
+            messages.success(request, 'Сообщение успешно отправлено!')
+            return redirect(return_url)
+    else:
+        form = MessageForm()
+
+    return render(request, 'bboard/send_message_for_bb.html', {'form': form, 'receiver': receiver, 'bb': bb})
+
+
+class Messages(ListView):
+    template_name = 'bboard/messages.html'
+    context_object_name = 'messages'
+
+    def get_queryset(self):
+        return Message.objects.filter(receiver=self.request.user.id)
+
+
 class UsersBbs(ListView):
-    template_name = 'bboard/index.html'
+    template_name = 'bboard/users_bbs.html'
     context_object_name = 'bbs'
 
     def get_queryset(self):
@@ -107,7 +150,6 @@ class Search(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        # Домашняя работа 55
         logger.warning(f'Пользователь {self.request.user} выполнил поиск - {self.request.GET.get("search")}')
         return Bb.objects.filter(title__icontains=self.request.GET.get('search'))
 
@@ -124,4 +166,4 @@ class PersonalProfile(DetailView):
 
 
 def page_not_found(request, exception):
-    return render(request, 'exceptions/page_not_found.html')
+    return render(request, 'handler/404.html', status=404)

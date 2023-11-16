@@ -1,14 +1,33 @@
 {% extends "layout/basic.html" %}
-
+{% load bootstrap4 %}
+{% load static %}
 {% block content %}
 
 <div class="container">
-    <div class="h1">Личный кабинет</div>
-    <div>
-        <h1>Пользователь: {{ user }}</h1>
+    <div class="h1 text-center">Личный кабинет</div>
+    <div class="d-flex justify-content-start">
+        <div class="w-25 mr-5">
+            {% if user.userprofile.photo %}
+            <img src="{{ user.userprofile.photo.url }}" alt="{{ user.userprofile.photo }}">
+            {% else %}
+            <a><img src="{% static 'bboard/img/profile_photo.png' %}" class="profile_photo"></a>
+            {% endif %}
+        </div>
+        <div class="flex-grow-1">
+            <p>Логин: {{ user }}</p>
+            <p>Имя: {{ user.first_name }}</p>
+            <p>Фамилия: {{ user.last_name }}</p>
+            <p>Email: {{ user.email }}</p>
+        </div>
+        <div class="text-center h5">
+            <ul>
+                <li><a href="{% url 'users_bbs' user %}">Мои объявления</a></li>
+                <li><a href="{% url 'messages' %}">Сообщения</a></li>
+                <li><a href="#">Избранное</a></li>
+            </ul>
+        </div>
     </div>
 
-    <div>Данный раздел находиться в разработке</div>
 </div>
 
 {% endblock content%}

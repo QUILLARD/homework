@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from bboard.models import Bb, Rubric, Country, Region, City, District
+from bboard.models import Bb, Rubric, Country, Region, City, District, UserProfile, Message
 
 
 class BbAdmin(admin.ModelAdmin):
@@ -22,4 +22,6 @@ class BbAdmin(admin.ModelAdmin):
 
 admin.site.register(Bb, BbAdmin)
 admin.site.register(Rubric)
+admin.site.register(UserProfile)
+admin.site.register(Message)
 

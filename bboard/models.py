@@ -7,6 +7,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from precise_bbcode.fields import BBCodeTextField
+from unidecode import unidecode
 
 
 class RubricQuerySet(models.QuerySet):
@@ -76,8 +77,22 @@ class Bb(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(unidecode(self.title))
         super().save(*args, **kwargs)
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='send_messages', verbose_name='Отправитель')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages', verbose_name='Получатель')
+    bb = models.ForeignKey(Bb, on_delete=models.CASCADE, related_name='messages')
+    text = models.TextField(verbose_name='Сообщение')
+
+    def __str__(self):
+        return self.bb.title
+
+    class Meta:
+        verbose_name = 'Сообщение'
+        verbose_name_plural = 'Сообщения'
 
 
 class IceCream(models.Model):
@@ -239,3 +254,10 @@ class Contact(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT)
     photo = models.ImageField(upload_to='userprofile/%Y/%m/%d/', verbose_name='Фотография')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'

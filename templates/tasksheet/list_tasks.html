@@ -10,7 +10,6 @@
     <h1 class="task-title">Лист Задач</h1>
     {% else %}
     <h1 class="task-title">Активных задач нет</h1>
-    <div class="text-center h5"><a href="{% url 'tasksheet:task_add' %}">Создать?</a></div>
     {% endif %}
     <div class="row mt-4 mb-4">
         {% for task in tasks %}
@@ -33,6 +32,7 @@
             </div>
         </div>
         {% endfor %}
+        <div class="text-center h5"><a href="{% url 'tasksheet:task_add' %}">Создать задачу</a></div>
     </div>
 </div>
 

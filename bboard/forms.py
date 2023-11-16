@@ -10,7 +10,7 @@ class BbForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['rubric'].empty_label = 'Рубрика не выбрана'
 
-    captcha = CaptchaField(label='Введите текст с картинки', error_messages={'invalid': 'Неправильный текст!'})
+    # captcha = CaptchaField(label='Введите текст с картинки', error_messages={'invalid': 'Неправильный текст!'})
 
     class Meta:
         model = Bb
@@ -55,3 +55,7 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ['user', 'content']
+
+
+class MessageForm(forms.Form):
+    text = forms.CharField(widget=forms.Textarea)

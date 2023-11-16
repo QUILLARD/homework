@@ -1,0 +1,34 @@
+{% extends 'layout/basic.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    {% if tasks %}
+    <h1 class="task-title">Сообщения</h1>
+    {% else %}
+    <h1 class="task-title">Сообщений нет</h1>
+    {% endif %}
+    <div class="row mt-4 mb-4">
+        {% for message in messages %}
+        <div class="col-sm-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h1 class="card-title h4">{{ message }}</h1>
+                    <p class="card-text">
+                        {{ message.text }}
+                    </p>
+                    <p class="card-text">
+                        От: {{ message.sender }}
+                    </p>
+                    <div class="d-flex align-items-center" style="height: 40px;">
+                        <a href="" class="btn text-white" style="background-color: #7BA7AB;">Открыть</a>
+                        <a href="" class="btn text-white ml-2" style="background-color: #7BA7AB;">Удалить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+

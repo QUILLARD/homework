@@ -1,5 +1,5 @@
 {% extends "layout/basic.html" %}
-
+{% load bootstrap4 %}
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
@@ -9,13 +9,13 @@
 
     <h1 class="create-title">{{ title }}</h1>
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="{% url 'add_bb' %}">
         {% csrf_token %}
         {% for f in form %}
         <p><label for="f.id_for_label" class="form-label-ad">{{ f.label }}:</label> {{ f }}</p>
         <p>{{ f.errors }}</p>
         {% endfor %}
-        <button class="create-btn" type="submit">Добавить</button>
+        <button class="create-btn " type="submit">Добавить</button>
     </form>
 
 </div>

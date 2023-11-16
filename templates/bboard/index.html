@@ -6,9 +6,10 @@
 
 {% block content %}
 
-{% include 'includes/inc_rubric_menu.html' %}
 <div class="container">
     <div class="row mt-4 mb-4">
+        {% if bbs %}
+        {% include 'includes/inc_rubric_menu.html' %}
         {% for bb in bbs %}
         <div class="col-sm-4 mb-4">
             <div class="card h-100">
@@ -30,6 +31,9 @@
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <div class="text-center h1">Объявлений нет</div>
+        {% endif %}
     </div>
 </div>
 

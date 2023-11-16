@@ -7,7 +7,8 @@
 
 <div class="content-ads container">
     <div class="content-ads-item">
-        <div> {% for obj in bbs %}
+        <div>
+            {% for obj in bbs %}
             <div class="h1"><h1>{{ obj.title }}</h1></div>
             <div class="content-ads-items">
                 <img class="content-ads-image" src="{{ obj.image.url }}">
@@ -20,7 +21,9 @@
             </div>
 
             <p><a href="{% url 'users_bbs' obj.user %}">Все объявления автора</a></p>
-            <p><a href="#">Написать сообщение</a></p>
+            {% if obj.user.id != user.id %}
+            <p><a href="{% url 'send_message_for_bb' receiver_id=obj.user.id bb_id=obj.id %}">Написать сообщение</a></p>
+            {% endif %}
             <p><a href="#">Добавить в избранное</a></p>
             {% endfor %}
         </div>

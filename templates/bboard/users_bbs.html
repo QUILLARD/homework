@@ -3,6 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="row mt-4 mb-4">
+        {% if bbs %}
         {% for bb in bbs %}
         <div class="col-sm-3 mb-4">
             <div class="card h-100">
@@ -15,12 +16,17 @@
                     </p>
                     <div class="d-flex align-items-center" style="height: 40px;">
                         <a href="{{ bb.get_absolute_url }}" class="btn text-white" style="background-color: #7BA7AB;">Посмотреть</a>
-                        <a href="#" class="btn text-white ml-2" style="background-color: #7BA7AB;">В избранное</a>
+                        <a href="{% url 'bb_delete' bb.pk %}" class="btn text-white ml-2" style="background-color: #7BA7AB;">Удалить</a>
                     </div>
                 </div>
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <div>
+            <p>У вас нет объявлений</p>
+        </div>
+        {% endif %}
     </div>
 </div>
 
